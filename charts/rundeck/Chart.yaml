@@ -1,0 +1,15 @@
+apiVersion: v1
+version: 3.4.9
+appVersion: 3.4.9
+description: A Rundeck chart for Kubernetes
+home: https://github.com/rundeck/rundeck
+keywords:
+- rundeck
+- jobs
+- automation
+- operations
+name: rundeck
+sources:
+- https://github.com/rundeck/rundeck
+version: 0.3.4
+icon: https://www.rundeck.com/hubfs/Images/logos/ChevronLogo_Red-on-White.png
