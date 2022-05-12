@@ -1,0 +1,15 @@
+
+zabbix:
+  enabled: true
+
+timescaledb-single:
+  enabled: true
+
+grafana:
+  enabled: true
+
+rundeck:
+  enabled: false
+
+alertaio:
+  enabled: false

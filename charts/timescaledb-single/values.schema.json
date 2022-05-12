@@ -32,6 +32,57 @@
       "mimimum": 0,
       "type": "integer"
     },
+    "service": {
+      "additionalProperties": false,
+      "properties": {
+        "annotations": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "labels": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "nodePort": {
+          "maximum": 65535,
+          "minimum": 1000,
+          "type": "integer"
+        },
+        "port": {
+          "maximum": 65535,
+          "minimum": 1000,
+          "type": "integer"
+        },
+        "spec": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "type": {
+          "enum": [
+            "ClusterIP",
+            "LoadBalancer",
+            "NodePort"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
     "volume": {
       "additionalProperties": false,
       "properties": {
@@ -670,32 +721,46 @@
     "schedulerName": {
       "type": "string"
     },
-    "secretNames": {
+    "secrets": {
       "additionalProperties": false,
       "properties": {
         "certificate": {
-          "minLength": 1,
           "type": [
-            "string",
+            "object",
             "null"
           ]
+        },
+        "certificateSecretName": {
+          "type": "string"
         },
         "credentials": {
-          "minLength": 1,
           "type": [
-            "string",
+            "object",
             "null"
           ]
         },
+        "credentialsSecretName": {
+          "type": "string"
+        },
         "pgbackrest": {
-          "minLength": 1,
           "type": [
-            "string",
+            "object",
             "null"
           ]
+        },
+        "pgbackrestSecretName": {
+          "type": "string"
         }
       },
       "type": "object"
+    },
+    "service": {
+      "primary": {
+        "$ref": "#/definitions/service"
+      },
+      "replica": {
+        "$ref": "#/definitions/service"
+      }
     },
     "serviceAccount": {
       "additionalProperties": false,
@@ -710,6 +775,9 @@
           ]
         }
       },
+      "type": "object"
+    },
+    "serviceMonitor": {
       "type": "object"
     },
     "sharedMemory": {
@@ -748,9 +816,6 @@
     "tolerations": {
       "type": "array"
     },
-    "unsafe": {
-      "type": "boolean"
-    },
     "version": {
       "maximum": 14,
       "minimum": 11,
@@ -784,12 +849,12 @@
     "replicaCount",
     "replicaLoadBalancer",
     "resources",
-    "secretNames",
+    "secrets",
     "serviceAccount",
+    "serviceMonitor",
     "sharedMemory",
     "timescaledbTune",
-    "tolerations",
-    "unsafe"
+    "tolerations"
   ],
   "schema": "http://json-schema.org/draft-07/schema#"
 }

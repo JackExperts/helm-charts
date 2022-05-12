@@ -11,5 +11,4 @@ keywords:
 name: rundeck
 sources:
 - https://github.com/rundeck/rundeck
-version: 0.3.4
 icon: https://www.rundeck.com/hubfs/Images/logos/ChevronLogo_Red-on-White.png
