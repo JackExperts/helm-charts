@@ -1,0 +1,150 @@
+# Jack Experts
+# https://jackexperts.com
+
+## MySQL Dependency
+mysql:
+  enabled: true
+  fullnameOverride: kimaidb
+  auth:
+    rootPassword: ""
+    database: kimai
+    username: "kimai"
+    password: "kimai"
+  primary:
+    persistence:
+      enabled: true
+      size: 8Gi
+  secondary:
+    replicaCount: 1
+    persistence:
+      enabled: true
+      size: 8Gi
+  metrics:
+    enabled: true
+
+## Kimai
+replicaCount: 1
+
+kimai:
+  adminMail: "" # defina o login admin
+  adminPass: "" # defina a senha do admin
+  kimaiEnv: prod
+
+mailer:
+  from: "" # defina o mail from
+  url: "" # defina a conexao smtp
+
+externalDatabase:
+  enabled: false
+  user: ""
+  pass: ""
+  host: ""
+  database: ""
+
+image:
+  repository: kimai/kimai2
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "apache"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+persistence:
+  type: pvc
+  enabled: true
+  accessModes:
+    - ReadWriteOnce
+  size: 5Gi
+  # annotations: {}
+  finalizers:
+    - kubernetes.io/pvc-protection
+  # selectorLabels: {}
+  # subPath: ""
+  # existingClaim:
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: 
+  fsGroup: 33
+
+updateStrategy:
+  type: Recreate
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 8001
+
+livenessProbe:
+  httpGet:
+    path: /en/login
+    port: http
+    httpHeaders:
+    - name: Host
+      value: localhost
+  periodSeconds: 10
+readinessProbe:
+  httpGet:
+    path: /en/login
+    port: http
+    httpHeaders:
+      - name: Host
+        value: localhost
+  periodSeconds: 10
+
+ingress:
+  enabled: true
+  className: ""
+  annotations:
+    # cert-manager.io/cluster-issuer: letsencrypt-prod
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hostname: kimal.local # defina o hostname da sua app
+  path: /
+  pathType: ImplementationSpecific
+  # tls:
+    # secretName: kimai-tls
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
