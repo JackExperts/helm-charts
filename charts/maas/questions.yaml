@@ -185,32 +185,16 @@ questions:
   show_subquestion_if: true
   group: "Rundeck"
   subquestions:
-  - variable: rundeck.ingress.enabled
-    default: "true"
-    description: "Habilita o ingress"
-    label: Habilita o ingress
-    type: boolean
-    show_subquestion_if: true
-    group: "Rundeck"
-    subquestions:
-    - variable: rundeck.ingress.hosts[0]
-      default: ""
-      description: "Informe o dominio"
-      type: string
-      label: Informe o dominio
-- variable: rundeck.ingress.tls
-  default: "true"
-  description: "Habilita HTTPS"
-  label: Habilita HTTPS para o Rundeck Web
-  type: boolean
-  show_subquestion_if: true
-  group: "Rundeck"
-  subquestions:
+  - variable: rundeck.ingress.hosts[0]
+    default: ""
+    description: "Informe o dominio"
+    type: string
+    label: Informe o dominio
   - variable: rundeck.ingress.tls[0].secretName
     default: "rundeck-ssl"
     description: "Secret default para geração do certificado"
     type: string
-    label: Secret SSL Grafana
+    label: Secret SSL Rundeck
   - variable: rundeck.ingress.tls[0].hosts[0]
     default: ""
     description: "Informe o dominio para o SSL (diferente do Zabbix)"
