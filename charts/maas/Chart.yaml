@@ -4,6 +4,7 @@ description: Monitoring As a Service (MaaS) - Jack Experts
 type: application
 version: 0.1.0
 appVersion: "0.1.0"
+icon: file://maas.png
 dependencies:
 - name: timescaledb-single
   version: 0.12.0
@@ -21,8 +22,4 @@ dependencies:
   version: 3.4.9
   condition: rundeck.enabled
   repository: file://../rundeck
-- name: alertaio
-  version: 1.0.0
-  condition: alertaio.enabled
-  repository: file://../alertaio
 

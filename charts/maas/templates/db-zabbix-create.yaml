@@ -1,0 +1,46 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Values.database.jobName }}
+  labels:
+    {{- include "maas.labels" . | nindent 4 }}
+    job-name: {{ .Values.database.jobName }}
+  annotations:
+    "helm.sh/hook": post-install
+    # "helm.sh/hook-weight": "-5"
+    # "helm.sh/hook-delete-policy": hook-succeeded
+spec:
+  activeDeadlineSeconds: 300
+  backoffLimit: 10
+  completions: 1
+  parallelism: 1
+  template:
+    metadata:
+      labels:
+        {{- include "maas.labels" . | nindent 8 }}
+        job-name: {{ .Values.database.jobName }}
+    spec:
+      restartPolicy: OnFailure
+      containers:
+      - name: {{ .Values.database.jobName }}
+        command: ["/bin/bash"]
+        args:
+        - '-c'
+        - |
+          sleep 30;
+          echo "{{ index .Values "timescaledb-single" "clusterName" }}:*:*:postgres:{{ index .Values "timescaledb-single" "secrets" "credentials" "PATRONI_SUPERUSER_PASSWORD" }}" > ~/.pgpass;
+          chmod 0600 ~/.pgpass;
+
+          cd /usr/share/doc/zabbix-server-postgresql;
+
+          createdb -h {{ index .Values "timescaledb-single" "clusterName" }} -U postgres -O postgres -E Unicode -T template0 zabbix;
+          zcat create.sql.gz | psql -h {{ index .Values "timescaledb-single" "clusterName" }} -U postgres {{ .Values.zabbix.zabbixServer.POSTGRES_DB }};
+
+          echo "CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE;" | psql -h {{ index .Values "timescaledb-single" "clusterName" }} -U postgres {{ .Values.zabbix.zabbixServer.POSTGRES_DB }};
+          
+          cat timescaledb.sql | psql -h {{ index .Values "timescaledb-single" "clusterName" }} -U postgres {{ .Values.zabbix.zabbixServer.POSTGRES_DB }};
+          
+        image: {{ .Values.zabbix.zabbixServer.image.repository }}:{{ .Values.zabbix.zabbixServer.image.tag }}
+        imagePullPolicy: IfNotPresent
+        resources:
+          {{- toYaml .Values.database.resources | nindent 10 }}

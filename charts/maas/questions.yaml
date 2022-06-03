@@ -1,0 +1,219 @@
+labels:
+ io.cattle.role: project # options are cluster/project
+categories:
+- Application
+- Monitoring
+questions:
+### Banco de dados
+- variable: timescaledb-single.enabled
+  default: "true"
+  description: "Instância de banco de dados para o Zabbix"
+  label: Habilita o timescaledb dentro da stack
+  type: boolean
+  show_subquestion_if: true
+  group: "TimescaleDB"
+  subquestions:
+  - variable: timescaledb-single.secrets.credentials.PATRONI_SUPERUSER_PASSWORD
+    default: ""
+    description: "Senha para acesso ao banco de dados do Zabbix"
+    type: password
+    label: Senha de acesso ao banco
+  - variable: timescaledb-single.persistentVolumes.data.size
+    default: "5Gi"
+    description: "Tamanho do disco para o banco de dados"
+    type: string
+    label: Tamanho do disco para o banco de dados
+  - variable: timescaledb-single.persistentVolumes.wal.size
+    default: "1Gi"
+    description: "Tamanho do disco WAL"
+    type: string
+    label: Tamanho do disco WAL
+
+### Letsencrypt
+- variable: letsencrypt.enabled
+  default: "true"
+  description: "Cria o cluster issuer Letsencrypt para o Zabbix"
+  label: Cluster Issuer letsencrypt-maas
+  type: boolean
+  show_subquestion_if: true
+  group: "Letsencrypt"
+  subquestions:
+  - variable: letsencrypt.mail
+    default: ""
+    description: "Informe o e-mail para cadastro no Letsencrypt"
+    type: string
+    label: Informe o e-mail para cadastro no Letsencrypt
+
+### Zabbix
+- variable: defaultImage
+  default: "true"
+  description: "Imagens default do chart Helm"
+  label: Use imagens defaults
+  type: boolean
+  show_subquestion_if: false
+  group: "Zabbix"
+  subquestions:
+  ## zabbix server
+  - variable: zabbix.zabbixServer.image.repository
+    default: "zabbix/zabbix-server-pgsql"
+    description: "Imagem Default Zabbix Server"
+    type: string
+    label: Zabbix Server Image Name
+  - variable: zabbix.zabbixServer.image.tag
+    default: "ubuntu-6.0.5"
+    description: "TAG Image Default Zabbix Server"
+    type: string
+    label: Zabbix Server Image Tag
+  ## zabbix web
+  - variable: zabbix.zabbixweb.image.repository
+    default: "zabbix/zabbix-web-apache-pgsql"
+    description: "Imagem Default Zabbix Web"
+    type: string
+    label: Zabbix Server Image Name
+  - variable: zabbix.zabbixweb.image.tag
+    default: "ubuntu-6.0.5"
+    description: "TAG Image Default Zabbix Web"
+    type: string
+    label: Zabbix Server Image Tag
+
+- variable: zabbix.zabbixServer.POSTGRES_PASSWORD
+  default: ""
+  description: "Informe a senha inserida na categoria do banco de dados"
+  label: Senha postgres Zabbix Server
+  type: password
+  group: "Zabbix"
+- variable: zabbix.zabbixweb.POSTGRES_PASSWORD
+  default: ""
+  description: "Informe a senha inserida na categoria do banco de dados"
+  label: Senha postgres Zabbix Web
+  type: password
+  group: "Zabbix"
+
+- variable: zabbix.ingress.enabled
+  default: "true"
+  description: "Habilita o ingress"
+  label: Habilita o ingress
+  type: boolean
+  show_subquestion_if: true
+  group: "Zabbix"
+  subquestions:
+  - variable: zabbix.ingress.domain
+    default: ""
+    description: "Informe o dominio"
+    type: string
+    label: Informe o dominio
+
+- variable: zabbix.ingress.tls
+  default: "true"
+  description: "Habilita HTTPS"
+  label: Habilita HTTPS para o Zabbix Web
+  type: boolean
+  show_subquestion_if: true
+  group: "Zabbix"
+  subquestions:
+  - variable: zabbix.ingress.tls[0].secretName
+    default: "zabbix-ssl"
+    description: "Secret default para geração do certificado"
+    type: string
+    label: Secret SSL Zabbix Web
+  - variable: zabbix.ingress.tls[0].hosts[0]
+    default: ""
+    description: "Informe o dominio para o SSL"
+    type: string
+    label: Informe o dominio SSL Zabbix Web
+
+
+### Grafana
+- variable: grafana.enabled
+  default: "false"
+  description: "Habilita o Grafana na stack"
+  label: Grafana integrado
+  type: boolean
+  show_subquestion_if: true
+  group: "Grafana"
+  subquestions:
+  - variable: grafana.adminUser
+    default: "admin"
+    description: "Usuário de acesso ao Grafana"
+    type: string
+    label: Usuário Grafana
+  - variable: grafana.adminPassword
+    default: ""
+    description: "Senha de acesso ao Grafana"
+    type: password
+    label: Senha Grafana
+
+  - variable: grafana.ingress.enabled
+    default: "true"
+    description: "Habilita o ingress"
+    label: Habilita o ingress
+    type: boolean
+    show_subquestion_if: true
+    group: "Grafana"
+    subquestions:
+    - variable: grafana.ingress.hosts[0]
+      default: ""
+      description: "Informe o dominio"
+      type: string
+      label: Informe o dominio
+
+  - variable: grafana.ingress.tls
+    default: "true"
+    description: "Habilita HTTPS"
+    label: Habilita HTTPS para o Grafana Web
+    type: boolean
+    show_subquestion_if: true
+    group: "Grafana"
+    subquestions:
+    - variable: grafana.ingress.tls[0].secretName
+      default: "zabbix-ssl"
+      description: "Secret default para geração do certificado"
+      type: string
+      label: Secret SSL Grafana
+    - variable: grafana.ingress.tls[0].hosts[0]
+      default: ""
+      description: "Informe o dominio para o SSL (mesmo do Zabbix)"
+      type: string
+      label: Informe o dominio SSL Grafana 
+
+### Rundeck
+- variable: rundeck.enabled
+  default: "false"
+  description: "Habilita o Rundeck na stack"
+  label: Rundeck na stack
+  type: boolean
+  show_subquestion_if: true
+  group: "Rundeck"
+  subquestions:
+  - variable: rundeck.ingress.enabled
+    default: "true"
+    description: "Habilita o ingress"
+    label: Habilita o ingress
+    type: boolean
+    show_subquestion_if: true
+    group: "Rundeck"
+    subquestions:
+    - variable: rundeck.ingress.hosts[0]
+      default: ""
+      description: "Informe o dominio"
+      type: string
+      label: Informe o dominio
+  - variable: rundeck.ingress.tls
+    default: "true"
+    description: "Habilita HTTPS"
+    label: Habilita HTTPS para o Rundeck Web
+    type: boolean
+    show_subquestion_if: true
+    group: "Rundeck"
+    subquestions:
+    - variable: rundeck.ingress.tls[0].secretName
+      default: "rundeck-ssl"
+      description: "Secret default para geração do certificado"
+      type: string
+      label: Secret SSL Grafana
+    - variable: rundeck.ingress.tls[0].hosts[0]
+      default: ""
+      description: "Informe o dominio para o SSL (diferente do Zabbix)"
+      type: string
+      label: Informe o dominio SSL Rundeck 
+

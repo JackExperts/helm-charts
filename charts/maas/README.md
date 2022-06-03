@@ -4,8 +4,8 @@ TODO: Descrição e objetivo
 
 ## Instalação
 
-    helm repo add incubator http://storage.googleapis.com/kubernetes-charts-incubator
-    helm install incubator/rundeck
+    git clone https://github.com/JackExperts/helm-charts.git
+    helm install charts/maas
 
 ## Configuração
 
