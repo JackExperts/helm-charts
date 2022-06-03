@@ -71,6 +71,9 @@ zabbix:
     image:
       repository: zabbix/zabbix-web-apache-pgsql
       tag: ubuntu-6.0.5
+    env:
+    - name: ZBX_SERVER_NAME
+      value: ""
     ZBX_SERVER_HOST: "zabbix-server"
     ZBX_SERVER_PORT: "10051"
     DB_SERVER_HOST: "db-zabbix"

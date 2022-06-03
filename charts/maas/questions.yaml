@@ -45,6 +45,12 @@ questions:
     label: Informe o e-mail para cadastro no Letsencrypt
 
 ### Zabbix
+- variable: zabbix.zabbixweb.env[0].value
+  default: "MaaS - Monitoring as a Service"
+  description: "Informe o nome da sua Stack"
+  label: Informe o nome da sua stack
+  type: string
+  group: "Zabbix"
 - variable: defaultImage
   default: "true"
   description: "Imagens default do chart Helm"

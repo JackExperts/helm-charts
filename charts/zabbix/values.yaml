@@ -171,7 +171,7 @@ zabbixweb:
         optional: false
   env:
     - name: ZBX_SERVER_NAME
-      value: "Monitoramento VISENT"
+      value: "Monitoramento Zabbix"
   service:
     # -- Type of service for Zabbix web
     type: NodePort
