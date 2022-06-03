@@ -102,15 +102,6 @@ questions:
     description: "Informe o dominio"
     type: string
     label: Informe o dominio
-
-- variable: zabbix.ingress.tls
-  default: "true"
-  description: "Habilita HTTPS"
-  label: Habilita HTTPS para o Zabbix Web
-  type: boolean
-  show_subquestion_if: true
-  group: "Zabbix"
-  subquestions:
   - variable: zabbix.ingress.tls[0].secretName
     default: "zabbix-ssl"
     description: "Secret default para geração do certificado"
@@ -156,15 +147,6 @@ questions:
     description: "Informe o dominio"
     type: string
     label: Informe o dominio
-
-- variable: grafana.ingress.tls
-  default: "true"
-  description: "Habilita HTTPS"
-  label: Habilita HTTPS para o Grafana Web
-  type: boolean
-  show_subquestion_if: true
-  group: "Grafana"
-  subquestions:
   - variable: grafana.ingress.tls[0].secretName
     default: "zabbix-ssl"
     description: "Secret default para geração do certificado"
