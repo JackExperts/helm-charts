@@ -135,7 +135,7 @@ grafana:
     # tls:
     #   - secretName: zabbix-ssl
     #     hosts:
-    #       - monitor.maas.jackexperts.com
+    #       - ""
 
 rundeck:
   enabled: false
@@ -162,4 +162,4 @@ rundeck:
     # tls: 
     #   - secretName: rundeck-tls
     #     hosts:
-    #       - jobs.maas.jackexperts.com
+    #       - ""
