@@ -45,17 +45,17 @@ questions:
     label: Informe o e-mail para cadastro no Letsencrypt
 
 ### Zabbix
+- variable: zabbix.zabbixweb.env[0].name
+  default: ZBX_SERVER_NAME
+  description: "Informe o nome da sua Stack"
+  label: Informe o nome da sua stack
+  show_if: "zabbix.zabbixweb.env[0].value="
+  type: string
+  group: "Zabbix"
 - variable: zabbix.zabbixweb.env[0].value
   default: "MaaS - Monitoring as a Service"
   description: "Informe o nome da sua Stack"
   label: Informe o nome da sua stack
-  type: string
-  group: "Zabbix"
-- variable: zabbix.zabbixweb.env[0].name
-  default: "ZBX_SERVER_NAME"
-  description: "Informe o nome da sua Stack"
-  label: Informe o nome da sua stack
-  show_if: "zabbix.zabbixweb.env[0].value="
   type: string
   group: "Zabbix"
 - variable: defaultImage
