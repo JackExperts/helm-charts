@@ -38,7 +38,7 @@ secrets:
   # Selector used to provision your own Secret containing patroni configuration details
   # This is mutually exclusive with `credentials` option and takes precedence over it.
   # WARNING: Use this option with caution  
-  credentialsSecretName: ""
+  # credentialsSecretName: ""
 
   # This map should contain tls key and certifiacte. When empty,
   # helm will generate self-signed certificate.
@@ -62,7 +62,7 @@ secrets:
   # Selector used to provision your own Secret containing pgbackrest configuration details
   # This is mutually exclusive with `pgbackrest` option and takes precedence over it.
   # WARNING: Use this option with caution
-  pgbackrestSecretName: ""
+  # pgbackrestSecretName: ""
 
 backup:
   enabled: false
