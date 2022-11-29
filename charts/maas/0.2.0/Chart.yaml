@@ -1,0 +1,25 @@
+apiVersion: v2
+name: maas
+description: Monitoring As a Service (MaaS) - Jack Experts
+type: application
+version: 0.2.0
+appVersion: "0.2.0"
+icon: file://maas.png
+dependencies:
+- name: timescaledb-single
+  version: 0.12.0
+  condition: timescaledb-single.enabled
+  repository: file://../timescaledb-single
+- name: zabbix-community
+  version: 0.3.2
+  condition: zabbix-community.enabled
+  repository: file://../zabbix
+- name: grafana
+  version: 6.6.1
+  condition: grafana.enabled
+  repository: file://../grafana
+- name: rundeck
+  version: 3.4.9
+  condition: rundeck.enabled
+  repository: file://../rundeck
+

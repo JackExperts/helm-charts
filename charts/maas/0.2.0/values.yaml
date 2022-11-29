@@ -1,0 +1,167 @@
+## Helm Chart - MaaS - Default values
+## Jack Experts
+
+timescaledb-single:
+  enabled: true
+  clusterName: db-zabbix
+  replicaCount: 1
+  loadBalancer:
+    enabled: false
+  backup:
+    enabled: false
+  secrets:
+    credentials:
+      PATRONI_SUPERUSER_PASSWORD: "db-zabbix"
+      PATRONI_REPLICATION_PASSWORD: "db-zabbix"
+      PATRONI_admin_PASSWORD: "db-zabbix"
+  persistentVolumes:
+    data:
+      enabled: true
+      size: 5Gi
+    wal:
+      enabled: true
+      size: 1Gi
+  resources:
+    limits:
+      cpu: 1
+      memory: 2048Mi
+    requests:
+      cpu: 500m
+      memory: 1024Mi
+  prometheus:
+    enabled: true
+    image:
+      repository: wrouesnel/postgres_exporter
+      tag: v0.7.0
+      pullPolicy: IfNotPresent
+
+letsencrypt:
+  enabled: true
+  name: letsencrypt-maas
+  mail: ""
+
+database:
+  create: true
+  jobName: dbzabbixcreate
+  resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+zabbix-community:
+  enabled: true
+  zabbix_image_tag: ubuntu-6.0.10
+  postgresql:
+    enabled: false
+  db_access:
+    unified_secret_name: zabbixdb-pguser-zabbix
+    db_server_host: "db-zabbix"
+    db_server_port: "5432"
+    postgres_user: "zabbix"
+    postgres_password: "zabbix"
+    postgres_db: "zabbix"
+  zabbixServer:
+    replicaCount: 1
+    image:
+      repository: zabbix/zabbix-server-pgsql
+    service:
+      type: ClusterIP
+
+  zabbixweb:
+    enabled: true
+    image:
+      repository: zabbix/zabbix-web-nginx-pgsql
+    extraEnv:
+    - name: ZBX_SERVER_NAME
+      value: MaaS
+  
+  zabbixagent:
+    enabled: true
+    ZBX_ACTIVE_ALLOW: true
+  
+  ingress:
+    enabled: true
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-maas
+      kubernetes.io/ingress.class: nginx
+    hosts:
+      - host: chart-example.local
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+    tls: []
+    #  - secretName: chart-example-tls
+    #    hosts:
+    #      - chart-example.local
+    pathType: Prefix
+
+grafana:
+  enabled: false
+  persistence:
+    enabled: true
+    size: 2Gi
+  adminUser: admin
+  adminPassword: ""
+  plugins:
+    - alexanderzobnin-zabbix-app
+  env:
+    GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS: alexanderzobnin-zabbix-datasource
+    GF_SERVER_ROOT_URL: "%(protocol)s://%(domain)s:%(http_port)s/dash/"
+    GF_SERVER_SERVE_FROM_SUB_PATH: true
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+      - name: "Zabbix"
+        type: "alexanderzobnin-zabbix-datasource"
+        url: "http://zabbix-web/api_jsonrpc.php"
+        access: "proxy"
+        orgId: 1
+        isDefault: true
+        jsonData:
+          username: "grafana"        
+        secureJsonData:
+          password: "grafana"
+        editable: true
+  ingress:
+    enabled: true
+    hosts:
+      - ""
+    path: /dash
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-maas
+      kubernetes.io/ingress.class: nginx
+    # tls:
+    #   - secretName: zabbix-ssl
+    #     hosts:
+    #       - ""
+
+rundeck:
+  enabled: false
+  rundeck:
+    adminUser: "admin:admin,user,admin,architect,deploy,build"
+    env:
+      RUNDECK_GRAILS_URL: "http://{{ .Release.Name }}.{{ .Release.Namespace }}.svc.cluster.local"
+      RUNDECK_SERVER_FORWARDED: "true"
+      RUNDECK_LOGGING_STRATEGY: "CONSOLE"
+  ingress:
+    enabled: true
+    annotations: 
+      kubernetes.io/ingress.class: nginx
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+      nginx.ingress.kubernetes.io/proxy-body-size: 200m
+      nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
+      nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
+      nginx.ingress.kubernetes.io/proxy-buffers-number: "100"
+      nginx.ingress.kubernetes.io/proxy-buffer-size: "200m"
+      nginx.ingress.kubernetes.io/client-body-buffer-size: "200m"
+    paths: ['/']
+    hosts:
+      - ""
+    # tls: 
+    #   - secretName: rundeck-tls
+    #     hosts:
+    #       - ""
