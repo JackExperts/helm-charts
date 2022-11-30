@@ -1,0 +1,356 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": 12,
+  "iteration": 1635185819286,
+  "links": [],
+  "panels": [
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {},
+          "decimals": 0,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 70
+              },
+              {
+                "color": "red",
+                "value": 90
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 17,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 2,
+      "maxPerRow": 2,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.4.2",
+      "repeat": null,
+      "repeatDirection": "h",
+      "targets": [
+        {
+          "application": {
+            "filter": "CPU"
+          },
+          "functions": [
+            {
+              "$$hashKey": "object:321",
+              "def": {
+                "category": "Filter",
+                "defaultParams": [
+                  "asc"
+                ],
+                "name": "sortSeries",
+                "params": [
+                  {
+                    "name": "direction",
+                    "options": [
+                      "asc",
+                      "desc"
+                    ],
+                    "type": "string"
+                  }
+                ]
+              },
+              "params": [
+                "desc"
+              ],
+              "text": "sortSeries(desc)"
+            },
+            {
+              "$$hashKey": "object:326",
+              "added": false,
+              "def": {
+                "category": "Filter",
+                "defaultParams": [
+                  5,
+                  "avg"
+                ],
+                "name": "top",
+                "params": [
+                  {
+                    "name": "number",
+                    "type": "int"
+                  },
+                  {
+                    "name": "value",
+                    "options": [
+                      "avg",
+                      "min",
+                      "max",
+                      "sum",
+                      "count",
+                      "median"
+                    ],
+                    "type": "string"
+                  }
+                ]
+              },
+              "params": [
+                "500",
+                "avg"
+              ],
+              "text": "top(500, avg)"
+            },
+            {
+              "$$hashKey": "object:322",
+              "def": {
+                "category": "Alias",
+                "defaultParams": [],
+                "name": "setAlias",
+                "params": [
+                  {
+                    "name": "alias",
+                    "type": "string"
+                  }
+                ]
+              },
+              "params": [
+                "$__zbx_host_name"
+              ],
+              "text": "setAlias($__zbx_host_name)"
+            }
+          ],
+          "group": {
+            "filter": "$group"
+          },
+          "host": {
+            "filter": "/.*/"
+          },
+          "item": {
+            "filter": "/.*Utilização.*/"
+          },
+          "options": {
+            "disableDataAlignment": false,
+            "showDisabledItems": false,
+            "skipEmptyValues": false,
+            "useZabbixValueMapping": true
+          },
+          "proxy": {
+            "filter": ""
+          },
+          "queryType": 0,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "table": {
+            "skipEmptyValues": false
+          },
+          "tags": {
+            "filter": ""
+          },
+          "trigger": {
+            "filter": ""
+          },
+          "triggers": {
+            "acknowledged": 2,
+            "count": true,
+            "minSeverity": 3
+          }
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Utilização de CPU - $group",
+      "transparent": true,
+      "type": "stat"
+    }
+  ],
+  "schemaVersion": 27,
+  "style": "dark",
+  "tags": [
+    "visent",
+    "claro",
+    "cpu"
+  ],
+  "templating": {
+    "list": [
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "VISENT",
+          "value": "VISENT"
+        },
+        "datasource": null,
+        "definition": "Zabbix - group",
+        "description": null,
+        "error": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": "Group",
+        "multi": false,
+        "name": "group",
+        "options": [],
+        "query": {
+          "application": "",
+          "group": "/VISENT.*/",
+          "host": "",
+          "item": "",
+          "queryType": "group"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "CDRVWANALISE01",
+          "value": "CDRVWANALISE01"
+        },
+        "datasource": null,
+        "definition": "Zabbix - host",
+        "description": null,
+        "error": null,
+        "hide": 2,
+        "includeAll": false,
+        "label": "Host",
+        "multi": false,
+        "name": "host",
+        "options": [
+          {
+            "selected": true,
+            "text": "CDRVWAPPL01",
+            "value": "CDRVWAPPL01"
+          },
+          {
+            "selected": false,
+            "text": "CDRVWAPPL02",
+            "value": "CDRVWAPPL02"
+          },
+          {
+            "selected": false,
+            "text": "CDRVWAPPL03",
+            "value": "CDRVWAPPL03"
+          },
+          {
+            "selected": false,
+            "text": "CDRVWAPPL04",
+            "value": "CDRVWAPPL04"
+          },
+          {
+            "selected": false,
+            "text": "CDRVWAPPL05",
+            "value": "CDRVWAPPL05"
+          },
+          {
+            "selected": false,
+            "text": "CDRVWAPPL06",
+            "value": "CDRVWAPPL06"
+          },
+          {
+            "selected": false,
+            "text": "CDRVWAPPL07",
+            "value": "CDRVWAPPL07"
+          },
+          {
+            "selected": false,
+            "text": "CDRVWAPPL08",
+            "value": "CDRVWAPPL08"
+          },
+          {
+            "selected": false,
+            "text": "CDRVWAPPL09",
+            "value": "CDRVWAPPL09"
+          },
+          {
+            "selected": false,
+            "text": "CDRVWAPPL10",
+            "value": "CDRVWAPPL10"
+          },
+          {
+            "selected": false,
+            "text": "CDRVWAPPL11",
+            "value": "CDRVWAPPL11"
+          },
+          {
+            "selected": false,
+            "text": "CDRVWAPPL12",
+            "value": "CDRVWAPPL12"
+          }
+        ],
+        "query": {
+          "application": "",
+          "group": "$group",
+          "host": "/.*/",
+          "item": "",
+          "queryType": "host"
+        },
+        "refresh": 0,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      }
+    ]
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "CLARO/VISENT/Utilização de CPU",
+  "uid": "KnaYlxO7k",
+  "version": 15
+}
