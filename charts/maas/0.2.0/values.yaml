@@ -92,12 +92,13 @@ zabbix:
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-maas
       kubernetes.io/ingress.class: nginx
-    hosts:
-      - host: chart-example.local
-        paths:
-          - path: /
-            pathType: ImplementationSpecific
-    tls: []
+    domain: chart-example.local
+    paths:
+      - path: /
+        pathType: ImplementationSpecific
+    tls:
+      enabled: true
+      secretName: zabbix-ssl
     #  - secretName: chart-example-tls
     #    hosts:
     #      - chart-example.local
@@ -133,16 +134,14 @@ grafana:
         editable: true
   ingress:
     enabled: true
-    hosts:
-      - ""
+    domain: chart-example.local
+    tls:
+      enabled: true
+      secretName: zabbix-ssl
     path: /dash
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-maas
       kubernetes.io/ingress.class: nginx
-    # tls:
-    #   - secretName: zabbix-ssl
-    #     hosts:
-    #       - ""
 
 rundeck:
   enabled: false
@@ -164,9 +163,7 @@ rundeck:
       nginx.ingress.kubernetes.io/proxy-buffer-size: "200m"
       nginx.ingress.kubernetes.io/client-body-buffer-size: "200m"
     paths: ['/']
-    hosts:
-      - ""
-    # tls: 
-    #   - secretName: rundeck-tls
-    #     hosts:
-    #       - ""
+    domain: chart-example.local
+    tls:
+      enabled: true
+      secretName: zabbix-ssl

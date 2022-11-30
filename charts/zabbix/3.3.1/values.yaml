@@ -415,13 +415,13 @@ ingress:
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   # -- Ingress hosts
-  hosts:
-    - host: chart-example.local
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-  # -- Ingress TLS configuration
-  tls: []
+  domain: chart-example.local
+  paths:
+    - path: /
+      pathType: ImplementationSpecific
+  tls:
+    enabled: true
+    secretName: zabbix-ssl
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local

@@ -27,14 +27,15 @@ spec:
   {{- if and $ingressSupportsIngressClassName .Values.ingress.ingressClassName }}
   ingressClassName: {{ .Values.ingress.ingressClassName }}
   {{- end -}}
-  {{- with .Values.ingress.tls }}
+  {{- if .Values.ingress.tls.enabled }}
   tls:
-    {{- tpl (toYaml .) $ | nindent 4 }}
+    - hosts:
+        - {{ .Values.ingress.domain | quote }}
+      secretName: {{ .Values.ingress.tls.secretName }}
   {{- end }}
   rules:
-  {{- if .Values.ingress.hosts  }}
-  {{- range .Values.ingress.hosts }}
-    - host: {{ tpl . $ }}
+  {{- if .Values.ingress.domain  }}
+    - host: {{ .Values.ingress.domain }}
       http:
         paths:
           {{- with $extraPaths }}
@@ -54,7 +55,6 @@ spec:
               serviceName: {{ $fullName }}
               servicePort: {{ $servicePort }}
               {{- end }}
-  {{- end }}
   {{- else }}
     - http:
         paths:

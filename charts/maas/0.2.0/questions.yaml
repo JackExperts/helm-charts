@@ -99,32 +99,21 @@ questions:
   show_subquestion_if: true
   group: "Zabbix"
   subquestions:
-  - variable: zabbix.ingress.'hosts[0]'.host
+  - variable: zabbix.ingress.domain
     default: ""
     description: "Informe o dominio"
     type: string
     label: Informe o dominio
-  - variable: zabbix.ingress.'hosts[0]'.'paths[0]'.path
-    default: "/"
-    description: "Informe o path (recomenda-se deixar o padrão)"
-    type: string
-    label: Informe o path
-  - variable: zabbix.ingress.'hosts[0]'.'paths[0]'.pathType
-    default: "ImplementationSpecific"
-    description: "Informe o pathType (recomenda-se deixar o padrão)"
-    type: string
-    label: Informe o pathType
-  - variable: zabbix.ingress.tls[0].secretName
+  - variable: zabbix.ingress.tls.enabled
+    default: "true"
+    description: "Habilita TLS"
+    type: boolean
+    label: Habilita TLS
+  - variable: zabbix.ingress.tls.secretName
     default: "zabbix-ssl"
-    description: "Secret default para geração do certificado"
+    description: "Informe a secret de guarda do certificado"
     type: string
-    label: Secret SSL Zabbix Web
-  - variable: zabbix.ingress.'tls[0]'.'hosts[0]'
-    default: ""
-    description: "Informe o dominio para o SSL"
-    type: string
-    label: Informe o dominio SSL Zabbix Web
-
+    show_if: "zabbix.ingress.tls.enabled=true"
 
 ### Grafana ###
 - variable: grafana.enabled
@@ -154,21 +143,21 @@ questions:
   show_subquestion_if: true
   group: "Grafana"
   subquestions:
-  - variable: grafana.ingress.'hosts[0]'
+  - variable: grafana.ingress.domain
     default: ""
-    description: "Informe o dominio"
+    description: "Informe o dominio (recomenda-se usar o mesmo do Zabbix)"
     type: string
     label: Informe o dominio
-  - variable: grafana.ingress.'tls[0]'.secretName
+  - variable: grafana.ingress.tls.enabled
+    default: "true"
+    description: "Habilita TLS"
+    type: boolean
+    label: Habilita TLS
+  - variable: grafana.ingress.tls.secretName
     default: "zabbix-ssl"
-    description: "Secret default para geração do certificado"
+    description: "Informe a secret de guarda do certificado (mesmo do Zabbix)"
     type: string
-    label: Secret SSL Grafana
-  - variable: grafana.ingress.'tls[0]'.'hosts[0]'
-    default: ""
-    description: "Informe o dominio para o SSL (mesmo do Zabbix)"
-    type: string
-    label: Informe o dominio SSL Grafana 
+    show_if: "grafana.ingress.tls.enabled=true"
 
 ### Rundeck
 - variable: rundeck.enabled
@@ -179,19 +168,19 @@ questions:
   show_subquestion_if: true
   group: "Rundeck"
   subquestions:
-  - variable: rundeck.ingress.'hosts[0]'
+  - variable: rundeck.ingress.domain
     default: ""
     description: "Informe o dominio"
     type: string
     label: Informe o dominio
-  - variable: rundeck.ingress.'tls[0]'.secretName
+  - variable: rundeck.ingress.tls.enabled
+    default: "true"
+    description: "Habilita TLS"
+    type: boolean
+    label: Habilita TLS
+  - variable: rundeck.ingress.tls.secretName
     default: "rundeck-ssl"
-    description: "Secret default para geração do certificado"
+    description: "Informe a secret de guarda do certificado"
     type: string
-    label: Secret SSL Rundeck
-  - variable: rundeck.ingress.'tls[0]'.'hosts[0]'
-    default: ""
-    description: "Informe o dominio para o SSL (diferente do Zabbix)"
-    type: string
-    label: Informe o dominio SSL Rundeck 
+    show_if: "rundeck.ingress.tls.enabled=true"
 
