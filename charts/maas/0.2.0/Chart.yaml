@@ -13,14 +13,14 @@ dependencies:
   version: 0.12.0
   condition: timescaledb-single.enabled
   repository: file://../../timescaledb-single
-- name: zabbix-community
-  version: 0.3.2
-  condition: zabbix-community.enabled
-  repository: file://../../zabbix
+- name: zabbix
+  version: 3.3.1
+  condition: zabbix.enabled
+  repository: file://../../zabbix/3.3.1
 - name: grafana
   version: 6.44.9
   condition: grafana.enabled
-  repository: file://../../grafana/6.44.9/
+  repository: file://../../grafana/6.44.9
 - name: rundeck
   version: 3.4.9
   condition: rundeck.enabled

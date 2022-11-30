@@ -1,6 +1,7 @@
 rancher_min_version: 2.3.0
 categories:
 - Monitoring
+- application
 questions:
 ### Banco de dados
 - variable: timescaledb-single.enabled
@@ -42,15 +43,15 @@ questions:
     type: string
     label: Informe o e-mail para cadastro no Letsencrypt
 
-### Zabbix
-- variable: zabbix.zabbixweb.env[0].name
-  default: ZBX_SERVER_NAME
-  description: "Informe o nome da sua Stack"
-  label: Informe o nome da sua stack
-  show_if: "zabbix.zabbixweb.env[0].value="
-  type: string
-  group: "Zabbix"
-- variable: zabbix.zabbixweb.env[0].value
+### Zabbix ###
+# - variable: zabbix.zabbixweb.extraEnv[0].name
+#   default: ZBX_SERVER_NAME
+#   description: "Informe o nome da sua Stack"
+#   label: Informe o nome da sua stack
+#   show_if: "zabbix.zabbixweb.extraEnv[0].value="
+#   type: string
+#   group: "Zabbix"
+- variable: zabbix.zabbixweb.extraEnv[0].value
   default: "MaaS - Monitoring as a Service"
   description: "Informe o nome da sua Stack"
   label: Informe o nome da sua stack
@@ -64,39 +65,29 @@ questions:
   show_subquestion_if: false
   group: "Zabbix"
   subquestions:
+  ## Tag default
+  - variable: zabbix.zabbix_image_tag
+    default: "ubuntu-6.0.10"
+    description: "TAG Image Default (Server, Agent and Frontend)"
+    type: string
+    label: Image tag default
   ## zabbix server
   - variable: zabbix.zabbixServer.image.repository
     default: "zabbix/zabbix-server-pgsql"
     description: "Imagem Default Zabbix Server"
     type: string
     label: Zabbix Server Image Name
-  - variable: zabbix.zabbixServer.image.tag
-    default: "ubuntu-6.0.5"
-    description: "TAG Image Default Zabbix Server"
-    type: string
-    label: Zabbix Server Image Tag
   ## zabbix web
   - variable: zabbix.zabbixweb.image.repository
     default: "zabbix/zabbix-web-apache-pgsql"
     description: "Imagem Default Zabbix Web"
     type: string
     label: Zabbix Server Image Name
-  - variable: zabbix.zabbixweb.image.tag
-    default: "ubuntu-6.0.5"
-    description: "TAG Image Default Zabbix Web"
-    type: string
-    label: Zabbix Server Image Tag
 
-- variable: zabbix.zabbixServer.POSTGRES_PASSWORD
+- variable: zabbix.postgres_password
   default: ""
   description: "Informe a senha inserida na categoria do banco de dados"
-  label: Senha postgres Zabbix Server
-  type: password
-  group: "Zabbix"
-- variable: zabbix.zabbixweb.POSTGRES_PASSWORD
-  default: ""
-  description: "Informe a senha inserida na categoria do banco de dados"
-  label: Senha postgres Zabbix Web
+  label: Senha postgres para o Zabbix
   type: password
   group: "Zabbix"
 
@@ -108,11 +99,21 @@ questions:
   show_subquestion_if: true
   group: "Zabbix"
   subquestions:
-  - variable: zabbix.ingress.domain
+  - variable: zabbix.ingress.hosts[0].host
     default: ""
     description: "Informe o dominio"
     type: string
     label: Informe o dominio
+  - variable: zabbix.ingress.hosts[0].paths[0].path
+    default: "/"
+    description: "Informe o path (recomenda-se deixar o padrão)"
+    type: string
+    label: Informe o path
+  - variable: zabbix.ingress.hosts[0].paths[0].pathType
+    default: "ImplementationSpecific"
+    description: "Informe o pathType (recomenda-se deixar o padrão)"
+    type: string
+    label: Informe o pathType
   - variable: zabbix.ingress.tls[0].secretName
     default: "zabbix-ssl"
     description: "Secret default para geração do certificado"
@@ -125,7 +126,7 @@ questions:
     label: Informe o dominio SSL Zabbix Web
 
 
-### Grafana
+### Grafana ###
 - variable: grafana.enabled
   default: "false"
   description: "Habilita o Grafana na stack"

@@ -34,13 +34,13 @@ spec:
           cd /usr/share/doc/zabbix-server-postgresql;
 
           createdb -h {{ index .Values "timescaledb-single" "clusterName" }} -U postgres -O postgres -E Unicode -T template0 zabbix;
-          zcat create.sql.gz | psql -h {{ index .Values "timescaledb-single" "clusterName" }} -U postgres {{ .Values.zabbix.zabbixServer.POSTGRES_DB }};
+          zcat create.sql.gz | psql -h {{ index .Values "timescaledb-single" "clusterName" }} -U postgres {{ .Values.zabbix.db_access.postgres_db }};
 
-          echo "CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE;" | psql -h {{ index .Values "timescaledb-single" "clusterName" }} -U postgres {{ .Values.zabbix.zabbixServer.POSTGRES_DB }};
+          echo "CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE;" | psql -h {{ index .Values "timescaledb-single" "clusterName" }} -U postgres {{ .Values.zabbix.db_access.postgres_db }};
           
-          cat timescaledb.sql | psql -h {{ index .Values "timescaledb-single" "clusterName" }} -U postgres {{ .Values.zabbix.zabbixServer.POSTGRES_DB }};
+          cat timescaledb.sql | psql -h {{ index .Values "timescaledb-single" "clusterName" }} -U postgres {{ .Values.zabbix.db_access.postgres_db }};
           
-        image: {{ .Values.zabbix.zabbixServer.image.repository }}:{{ .Values.zabbix.zabbixServer.image.tag }}
+        image: {{ .Values.zabbix.zabbixServer.image.repository }}:{{ .Values.zabbix.zabbix_image_tag }}
         imagePullPolicy: IfNotPresent
         resources:
           {{- toYaml .Values.database.resources | nindent 10 }}

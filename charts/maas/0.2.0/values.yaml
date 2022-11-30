@@ -51,7 +51,7 @@ database:
   #   cpu: 100m
   #   memory: 128Mi
 
-zabbix-community:
+zabbix:
   enabled: true
   zabbix_image_tag: ubuntu-6.0.10
   postgresql:
@@ -60,7 +60,7 @@ zabbix-community:
     unified_secret_name: zabbixdb-pguser-zabbix
     db_server_host: "db-zabbix"
     db_server_port: "5432"
-    postgres_user: "zabbix"
+    postgres_user: "postgres"
     postgres_password: "zabbix"
     postgres_db: "zabbix"
   zabbixServer:
@@ -80,7 +80,7 @@ zabbix-community:
   
   zabbixagent:
     enabled: true
-    ZBX_ACTIVE_ALLOW: true
+    ZBX_ACTIVE_ALLOW: false
   
   ingress:
     enabled: true
