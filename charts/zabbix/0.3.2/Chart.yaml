@@ -10,5 +10,5 @@ keywords:
   - metics
 home: https://www.zabbix.com/
 icon: https://assets.zabbix.com/img/logo/zabbix_logo_500x131.png
-source:
+sources:
   - https://git.jacexperts.io/JAC/charts/zabbix

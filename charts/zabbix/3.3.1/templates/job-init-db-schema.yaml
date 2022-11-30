@@ -1,0 +1,40 @@
+{{- if and .Values.zabbixserver.enabled (gt (.Values.zabbixserver.replicaCount | int) 1) }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ template "zabbix.fullname" . }}-init-db-schema
+  labels:
+    app: {{ template "zabbix.fullname" . }}-init-db-schema
+    app.kubernetes.io/name: init-db-schema
+    helm.sh/chart: {{ include "zabbix.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}-init-db-schema
+    app.kubernetes.io/managed-by: {{ .Release.Service }}-init-db-schema
+spec:
+  ttlSecondsAfterFinished: 120
+  template:
+    spec:
+      containers:
+      - name: init-db-schema
+        {{- if .Values.zabbixserver.image.tag }}
+        image: "{{ .Values.zabbixserver.image.repository }}:{{ .Values.zabbixserver.image.tag }}"
+        {{- else }}
+        image: "{{ .Values.zabbixserver.image.repository }}:{{ .Values.zabbix_image_tag }}"
+        {{- end }}
+        env:
+          {{- include "zabbix.db_access.env_vars" (list $ . "zabbix") | nindent 10 }}
+          {{- range $item := .Values.zabbixserver.extraEnv }}
+          - name: {{ $item.name }}
+            value: {{ $item.value | quote }}
+          {{- end }}
+          - name: ZBX_AUTOHANODENAME
+            value: "hostname"
+          - name: ZBX_NODEADDRESS
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP
+        command:
+          - "/bin/sh"
+          - "-c"
+          - 'sed -e "s/^exec \"\$@\"$/prepare_server/" -e "/^ *update_zbx_config$/d" /usr/bin/docker-entrypoint.sh >~/docker-entrypoint.sh && bash ~/docker-entrypoint.sh'
+      restartPolicy: Never
+{{- end }}
