@@ -7,7 +7,7 @@ annotations:
   catalog.cattle.io/os: linux
 version: 0.2.0
 appVersion: "0.2.0"
-icon: file://maas.png
+icon: file://img/maas.png
 dependencies:
 - name: timescaledb-single
   version: 0.12.0

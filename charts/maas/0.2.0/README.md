@@ -1,6 +1,10 @@
-# Helm Chart MaaS Stack
+# Stack MaaS - Monitoring as a Service
 
-Esse chart Helm define a stack MaaS (Monitoring as a Service) da Jack Experts.
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) ![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square)
+
+Esse chart Helm define a stack MaaS (Monitoring as a Service) da Jack Experts e transforma-o em um self-service para quem utiliza Rancher.
+
+![O MaaS no catálogo Rancher](./img/app-rancher.png "MaaS App Rancher")
 
 ## Instalação
 
@@ -146,11 +150,8 @@ rundeck.ingress.hosts | Domínio de acesso desejado |
 
 ## TODO
 
-- Exclusão da rotina de criação do banco de dados;
 - Criação do usuário no Zabbix via API para uso pelo Grafana;
-- Reaproveitamento de variáveis do values (ex.: senha do banco de dados);
-- Persistência do External Scripts do Zabbix Server e Alert Scripts do Zabbix web;
-- ...
+- Subida de dashboards customizados no Grafana;
 
 ## Como contribuir
 
