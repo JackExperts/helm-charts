@@ -31,8 +31,8 @@ questions:
 ### Letsencrypt
 - variable: letsencrypt.enabled
   default: "true"
-  description: "Cria o cluster issuer Letsencrypt para o Zabbix"
-  label: Cluster Issuer letsencrypt-maas
+  description: "Cria o issuer Letsencrypt para o Zabbix"
+  label: Issuer letsencrypt-maas
   type: boolean
   show_subquestion_if: true
   group: "Letsencrypt"
