@@ -84,7 +84,7 @@ questions:
     type: string
     label: Zabbix Server Image Name
 
-- variable: zabbix.postgres_password
+- variable: zabbix.db_access.postgres_password
   default: ""
   description: "Informe a senha inserida na categoria do banco de dados"
   label: Senha postgres para o Zabbix
