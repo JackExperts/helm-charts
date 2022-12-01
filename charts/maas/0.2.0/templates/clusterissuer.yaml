@@ -1,8 +1,10 @@
 {{- if .Values.letsencrypt.enabled -}}
 apiVersion: cert-manager.io/v1
-kind: ClusterIssuer
+kind: Issuer
 metadata:
   name: {{ .Values.letsencrypt.name }}
+  labels:
+    {{- include "maas.labels" . | nindent 4 }}
 spec:
   acme:
     email: {{ .Values.letsencrypt.mail }}
