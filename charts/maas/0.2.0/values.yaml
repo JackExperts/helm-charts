@@ -53,7 +53,7 @@ database:
 
 zabbix:
   enabled: true
-  zabbix_image_tag: ubuntu-6.0.10
+  zabbix_image_tag: ubuntu-6.2.5
   postgresql:
     enabled: false
   db_access:
@@ -77,11 +77,12 @@ zabbix:
 
   zabbixweb:
     enabled: true
+    client: ""
     image:
       repository: zabbix/zabbix-web-nginx-pgsql
     extraEnv:
     - name: ZBX_SERVER_NAME
-      value: MaaS
+      value: MaaS - '{{ .Values.zabbix.zabbixweb.client }}'
   
   zabbixagent:
     enabled: true

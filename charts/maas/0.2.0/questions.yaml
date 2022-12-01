@@ -51,8 +51,8 @@ questions:
 #   show_if: "zabbix.zabbixweb.extraEnv[0].value="
 #   type: string
 #   group: "Zabbix"
-- variable: zabbix.zabbixweb.extraEnv[0].value
-  default: "MaaS - Monitoring as a Service"
+- variable: zabbix.zabbixweb.client
+  default: ""
   description: "Informe o nome da sua Stack"
   label: Informe o nome da sua stack
   type: string
@@ -67,7 +67,7 @@ questions:
   subquestions:
   ## Tag default
   - variable: zabbix.zabbix_image_tag
-    default: "ubuntu-6.0.10"
+    default: "ubuntu-6.2.5"
     description: "TAG Image Default (Server, Agent and Frontend)"
     type: string
     label: Image tag default
