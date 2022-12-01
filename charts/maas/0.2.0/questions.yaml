@@ -51,7 +51,7 @@ questions:
 #   show_if: "zabbix.zabbixweb.extraEnv[0].value="
 #   type: string
 #   group: "Zabbix"
-- variable: zabbix.zabbixweb.client
+- variable: zabbix.zabbixweb.maas
   default: ""
   description: "Informe o nome da sua Stack"
   label: Informe o nome da sua stack

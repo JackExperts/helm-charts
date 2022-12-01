@@ -65,6 +65,10 @@ spec:
         {{- end }}
         imagePullPolicy: {{ .Values.zabbixweb.image.pullPolicy }}
         env:
+          {{- if .Values.zabbixweb.maas }}
+          - name: ZBX_SERVER_NAME
+            value: {{ .Values.zabbixweb.maas | quote  }}
+          {{- end }}
           {{- include "zabbix.db_access.env_vars" (list $ . "zabbix") | nindent 10 }}
           {{- range $item := .Values.zabbixweb.extraEnv }}
           - name: {{ $item.name }}

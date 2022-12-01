@@ -77,12 +77,9 @@ zabbix:
 
   zabbixweb:
     enabled: true
-    client: ""
+    maas: "MaaS - Demo"
     image:
       repository: zabbix/zabbix-web-nginx-pgsql
-    extraEnv:
-    - name: ZBX_SERVER_NAME
-      value: MaaS - '{{ .Values.zabbix.zabbixweb.client }}'
   
   zabbixagent:
     enabled: true
