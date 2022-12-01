@@ -293,8 +293,8 @@
       "scopedVars": {
         "group": {
           "selected": true,
-          "text": "VISENT",
-          "value": "VISENT"
+          "text": "",
+          "value": ""
         }
       },
       "sparkline": {
@@ -425,8 +425,8 @@
       "scopedVars": {
         "group": {
           "selected": true,
-          "text": "VISENT/APPLs",
-          "value": "VISENT/APPLs"
+          "text": "/APPLs",
+          "value": "/APPLs"
         }
       },
       "sparkline": {
@@ -557,8 +557,8 @@
       "scopedVars": {
         "group": {
           "selected": true,
-          "text": "VISENT/Parsers",
-          "value": "VISENT/Parsers"
+          "text": "/Parsers",
+          "value": "/Parsers"
         }
       },
       "sparkline": {
@@ -689,8 +689,8 @@
       "scopedVars": {
         "group": {
           "selected": true,
-          "text": "VISENT/Windows Servers",
-          "value": "VISENT/Windows Servers"
+          "text": "/Windows Servers",
+          "value": "/Windows Servers"
         }
       },
       "sparkline": {
@@ -860,7 +860,7 @@
           }
         }
       ],
-      "title": "Incidentes Claro VISENT",
+      "title": "Incidentes",
       "triggerSeverity": [
         {
           "$$hashKey": "object:561",
@@ -912,8 +912,6 @@
   "schemaVersion": 27,
   "style": "dark",
   "tags": [
-    "visent",
-    "claro",
     "status"
   ],
   "templating": {
@@ -922,18 +920,8 @@
         "allValue": null,
         "current": {
           "selected": true,
-          "text": [
-            "VISENT",
-            "VISENT/APPLs",
-            "VISENT/Parsers",
-            "VISENT/Windows Servers"
-          ],
-          "value": [
-            "VISENT",
-            "VISENT/APPLs",
-            "VISENT/Parsers",
-            "VISENT/Windows Servers"
-          ]
+          "text": "",
+          "value": ""
         },
         "datasource": "Zabbix",
         "definition": "",
@@ -988,7 +976,7 @@
     ]
   },
   "timezone": "",
-  "title": "CLARO/VISENT/System Status",
+  "title": "System Status",
   "uid": "gltW3u8Mz",
   "version": 10
 }

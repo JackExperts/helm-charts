@@ -1124,10 +1124,8 @@
   "schemaVersion": 27,
   "style": "dark",
   "tags": [
-    "zabbix",
-    "windows",
-    "visent",
-    "claro"
+    "servers",
+    "zabbix"
   ],
   "templating": {
     "list": [
@@ -1136,8 +1134,8 @@
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "VISENT/Parsers",
-          "value": "VISENT/Parsers"
+          "text": "",
+          "value": ""
         },
         "datasource": "Zabbix",
         "definition": "",
@@ -1167,8 +1165,8 @@
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "CDRVWPARSER01",
-          "value": "CDRVWPARSER01"
+          "text": "",
+          "value": ""
         },
         "datasource": "Zabbix",
         "definition": "",
@@ -1225,7 +1223,7 @@
     ]
   },
   "timezone": "browser",
-  "title": "CLARO/VISENT/Dashboard servidores",
+  "title": "Dashboard servidores",
   "uid": "R7tMqX8Gz",
   "version": 27
 }

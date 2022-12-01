@@ -3,30 +3,41 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
         "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
         "type": "dashboard"
       }
     ]
   },
   "editable": true,
-  "gnetId": null,
+  "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 12,
-  "iteration": 1635185819286,
+  "id": 2,
   "links": [],
+  "liveNow": false,
   "panels": [
     {
-      "datasource": null,
+      "datasource": {
+        "type": "alexanderzobnin-zabbix-datasource",
+        "uid": "PA67C5EADE9207728"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
           },
-          "custom": {},
           "decimals": 0,
           "mappings": [],
           "thresholds": {
@@ -73,13 +84,16 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.4.2",
-      "repeat": null,
+      "pluginVersion": "9.2.5",
       "repeatDirection": "h",
       "targets": [
         {
           "application": {
             "filter": "CPU"
+          },
+          "datasource": {
+            "type": "alexanderzobnin-zabbix-datasource",
+            "uid": "PA67C5EADE9207728"
           },
           "functions": [
             {
@@ -197,33 +211,29 @@
           }
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Utilização de CPU - $group",
       "transparent": true,
       "type": "stat"
     }
   ],
-  "schemaVersion": 27,
+  "schemaVersion": 37,
   "style": "dark",
   "tags": [
-    "visent",
-    "claro",
     "cpu"
   ],
   "templating": {
     "list": [
       {
-        "allValue": null,
         "current": {
           "selected": false,
-          "text": "VISENT",
-          "value": "VISENT"
+          "text": "",
+          "value": ""
         },
-        "datasource": null,
+        "datasource": {
+          "type": "alexanderzobnin-zabbix-datasource",
+          "uid": "PA67C5EADE9207728"
+        },
         "definition": "Zabbix - group",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": false,
         "label": "Group",
@@ -232,9 +242,10 @@
         "options": [],
         "query": {
           "application": "",
-          "group": "/VISENT.*/",
+          "group": "/.*/",
           "host": "",
           "item": "",
+          "itemTag": "",
           "queryType": "group"
         },
         "refresh": 1,
@@ -242,89 +253,27 @@
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
       },
       {
-        "allValue": null,
         "current": {
           "selected": false,
-          "text": "CDRVWANALISE01",
-          "value": "CDRVWANALISE01"
+          "text": "",
+          "value": ""
         },
-        "datasource": null,
+        "datasource": {
+          "type": "alexanderzobnin-zabbix-datasource",
+          "uid": "PA67C5EADE9207728"
+        },
         "definition": "Zabbix - host",
-        "description": null,
-        "error": null,
         "hide": 2,
         "includeAll": false,
         "label": "Host",
         "multi": false,
         "name": "host",
-        "options": [
-          {
-            "selected": true,
-            "text": "CDRVWAPPL01",
-            "value": "CDRVWAPPL01"
-          },
-          {
-            "selected": false,
-            "text": "CDRVWAPPL02",
-            "value": "CDRVWAPPL02"
-          },
-          {
-            "selected": false,
-            "text": "CDRVWAPPL03",
-            "value": "CDRVWAPPL03"
-          },
-          {
-            "selected": false,
-            "text": "CDRVWAPPL04",
-            "value": "CDRVWAPPL04"
-          },
-          {
-            "selected": false,
-            "text": "CDRVWAPPL05",
-            "value": "CDRVWAPPL05"
-          },
-          {
-            "selected": false,
-            "text": "CDRVWAPPL06",
-            "value": "CDRVWAPPL06"
-          },
-          {
-            "selected": false,
-            "text": "CDRVWAPPL07",
-            "value": "CDRVWAPPL07"
-          },
-          {
-            "selected": false,
-            "text": "CDRVWAPPL08",
-            "value": "CDRVWAPPL08"
-          },
-          {
-            "selected": false,
-            "text": "CDRVWAPPL09",
-            "value": "CDRVWAPPL09"
-          },
-          {
-            "selected": false,
-            "text": "CDRVWAPPL10",
-            "value": "CDRVWAPPL10"
-          },
-          {
-            "selected": false,
-            "text": "CDRVWAPPL11",
-            "value": "CDRVWAPPL11"
-          },
-          {
-            "selected": false,
-            "text": "CDRVWAPPL12",
-            "value": "CDRVWAPPL12"
-          }
-        ],
+        "options": [],
         "query": {
           "application": "",
           "group": "$group",
@@ -332,12 +281,11 @@
           "item": "",
           "queryType": "host"
         },
-        "refresh": 0,
+        "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
@@ -350,7 +298,8 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "CLARO/VISENT/Utilização de CPU",
+  "title": "Utilização de CPU",
   "uid": "KnaYlxO7k",
-  "version": 15
+  "version": 5,
+  "weekStart": ""
 }

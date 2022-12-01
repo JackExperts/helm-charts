@@ -179,8 +179,6 @@
   "schemaVersion": 27,
   "style": "dark",
   "tags": [
-    "visent",
-    "claro",
     "ram"
   ],
   "templating": {
@@ -189,8 +187,8 @@
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "VISENT",
-          "value": "VISENT"
+          "text": "",
+          "value": ""
         },
         "datasource": null,
         "definition": "Zabbix - group",
@@ -223,8 +221,8 @@
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "CDRVWANALISE01",
-          "value": "CDRVWANALISE01"
+          "text": "",
+          "value": ""
         },
         "datasource": null,
         "definition": "Zabbix - host",
@@ -238,63 +236,8 @@
         "options": [
           {
             "selected": true,
-            "text": "CDRVWPARSER01",
-            "value": "CDRVWPARSER01"
-          },
-          {
-            "selected": false,
-            "text": "CDRVWPARSER02",
-            "value": "CDRVWPARSER02"
-          },
-          {
-            "selected": false,
-            "text": "CDRVWPARSER03",
-            "value": "CDRVWPARSER03"
-          },
-          {
-            "selected": false,
-            "text": "CDRVWPARSER04",
-            "value": "CDRVWPARSER04"
-          },
-          {
-            "selected": false,
-            "text": "CDRVWPARSER05",
-            "value": "CDRVWPARSER05"
-          },
-          {
-            "selected": false,
-            "text": "CDRVWPARSER06",
-            "value": "CDRVWPARSER06"
-          },
-          {
-            "selected": false,
-            "text": "CDRVWPARSER07",
-            "value": "CDRVWPARSER07"
-          },
-          {
-            "selected": false,
-            "text": "CDRVWPARSER08",
-            "value": "CDRVWPARSER08"
-          },
-          {
-            "selected": false,
-            "text": "CDRVWPARSER09",
-            "value": "CDRVWPARSER09"
-          },
-          {
-            "selected": false,
-            "text": "CDRVWPARSER10",
-            "value": "CDRVWPARSER10"
-          },
-          {
-            "selected": false,
-            "text": "CDRVWPARSER11",
-            "value": "CDRVWPARSER11"
-          },
-          {
-            "selected": false,
-            "text": "CDRVWPARSER12",
-            "value": "CDRVWPARSER12"
+            "text": "",
+            "value": ""
           }
         ],
         "query": {
@@ -322,7 +265,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "CLARO/VISENT/Utilização de memória",
+  "title": "Utilização de memória",
   "uid": "snI9QbOnz",
   "version": 19
 }

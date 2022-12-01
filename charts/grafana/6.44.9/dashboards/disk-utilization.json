@@ -159,8 +159,6 @@
   "schemaVersion": 27,
   "style": "dark",
   "tags": [
-    "claro",
-    "visent",
     "disk"
   ],
   "templating": {
@@ -169,8 +167,8 @@
         "allValue": null,
         "current": {
           "selected": true,
-          "text": "VISENT/Windows Servers",
-          "value": "VISENT/Windows Servers"
+          "text": "",
+          "value": ""
         },
         "datasource": null,
         "definition": "Zabbix - group",
@@ -203,8 +201,8 @@
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "CDRVWANALISE01",
-          "value": "CDRVWANALISE01"
+          "text": "",
+          "value": ""
         },
         "datasource": null,
         "definition": "Zabbix - host",
@@ -241,7 +239,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "CLARO/VISENT/Utilização de disco",
+  "title": "Utilização de disco",
   "uid": "EUgKbxdnk",
   "version": 26
 }
