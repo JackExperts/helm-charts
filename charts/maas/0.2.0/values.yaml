@@ -118,6 +118,18 @@ grafana:
     GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS: alexanderzobnin-zabbix-datasource
     GF_SERVER_ROOT_URL: "%(protocol)s://%(domain)s:%(http_port)s/dash/"
     GF_SERVER_SERVE_FROM_SUB_PATH: true
+  dashboards:
+    default:
+      system-status:
+        file: dashboards/system-status.json
+      cpu-utilization:
+        file: dashboards/cpu-utilization.json
+      dashboard-servers:
+        file: dashboards/dashboard-servers.json
+      memory-utilization:
+        file: dashboards/memory-utilization.json
+      disk-utilization:
+        file: dashboards/disk-utilization.json
   datasources:
     datasources.yaml:
       apiVersion: 1
