@@ -63,7 +63,7 @@ zabbix:
     postgres_user: "postgres"
     postgres_password: "zabbix"
     postgres_db: "zabbix"
-  zabbixServer:
+  zabbixserver:
     replicaCount: 1
     image:
       repository: zabbix/zabbix-server-pgsql
