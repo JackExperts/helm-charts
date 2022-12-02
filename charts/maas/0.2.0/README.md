@@ -50,7 +50,7 @@ Como configurar este chart Helm.
 Parâmetro | Descrição | Valor padrão
   --------- | ----------- | -------
 letsencrypt.enabled | Habilita a criação do ClusterIssuer | true
-letsencrypt.name | Nome do Cluster Issuer | letsencrypt-maas
+letsencrypt.name | Nome da Issuer | letsencrypt-maas
 letsencrypt.mail | E-mail válido | 
 
 </details>
