@@ -40,7 +40,7 @@ spec:
           
           cat timescaledb.sql | psql -h {{ index .Values "timescaledb-single" "clusterName" }} -U postgres {{ .Values.zabbix.db_access.postgres_db }};
           
-        image: {{ .Values.zabbix.zabbixServer.image.repository }}:{{ .Values.zabbix.zabbix_image_tag }}
+        image: {{ .Values.zabbix.zabbixserver.image.repository }}:{{ .Values.zabbix.zabbix_image_tag }}
         imagePullPolicy: IfNotPresent
         resources:
           {{- toYaml .Values.database.resources | nindent 10 }}

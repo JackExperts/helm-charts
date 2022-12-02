@@ -72,7 +72,7 @@ questions:
     type: string
     label: Image tag default
   ## zabbix server
-  - variable: zabbix.zabbixServer.image.repository
+  - variable: zabbix.zabbixserver.image.repository
     default: "zabbix/zabbix-server-pgsql"
     description: "Imagem Default Zabbix Server"
     type: string
