@@ -92,6 +92,7 @@ questions:
   group: "Zabbix"
 - variable: database.create
   default: "true"
+  label: "Cria as tabelas do Zabbix?"
   description: "Criação das tabelas e configuração inicial do banco do Zabbix"
   type: boolean
   group: "Zabbix"
