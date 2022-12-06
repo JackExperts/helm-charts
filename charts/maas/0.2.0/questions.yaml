@@ -86,9 +86,14 @@ questions:
 
 - variable: zabbix.db_access.postgres_password
   default: ""
-  description: "Informe a senha inserida na categoria do banco de dados"
-  label: Senha postgres para o Zabbix
+  description: "Senha para acesso ao banco de dados do Zabbix"
+  label: Senha de acesso ao banco
   type: password
+  group: "Zabbix"
+- variable: database.create
+  default: "true"
+  description: "Criação das tabelas e configuração inicial do banco do Zabbix"
+  type: boolean
   group: "Zabbix"
 
 - variable: zabbix.ingress.enabled
