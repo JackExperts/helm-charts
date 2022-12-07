@@ -5,6 +5,10 @@ timescaledb-single:
   enabled: true
   clusterName: db-zabbix
   replicaCount: 1
+  image:
+  repository: timescale/timescaledb-ha
+  tag: pg14.2-ts2.6.1-p2
+  pullPolicy: Always
   loadBalancer:
     enabled: false
   backup:
