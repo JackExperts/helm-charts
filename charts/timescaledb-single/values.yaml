@@ -19,8 +19,9 @@ version:
 image:
   # Image was built from
   # https://github.com/timescale/timescaledb-docker-ha
-  repository: timescale/timescaledb-ha
-  tag: pg14.2-ts2.6.1-p2
+  repository: timescaledev/timescaledb-ha
+  # tag: pg14.2-ts2.6.1-p2
+  tag: pg12-ts2.0-latest
   pullPolicy: Always
 
 # By default those secrets are randomly generated.
