@@ -21,6 +21,7 @@ rundeck:
     RUNDECK_GRAILS_URL: "http://{{ .Release.Name }}.{{ .Release.Namespace }}.svc.cluster.local"
     RUNDECK_SERVER_FORWARDED: "true"
     RUNDECK_LOGGING_STRATEGY: "CONSOLE"
+    RUNDECK_SECURITY_HTTPHEADERS_PROVIDER_CSP_ENABLED: 'false'
     # RUNDECK_DATABASE_DRIVER: com.mysql.jdbc.Driver
     # RUNDECK_DATABASE_USERNAME: rundeck
     # RUNDECK_DATABASE_PASSWORD: rundeck
@@ -65,7 +66,7 @@ persistence:
 
   # Set claim.create:true  to have the helm chart manage the creation of a new PVC for this deployment
   claim:
-    create: false
+    create: true
     # storageClass:
     # accessMode: ReadWriteOnce
     # size: 10G
