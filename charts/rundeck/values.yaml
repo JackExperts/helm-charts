@@ -56,20 +56,14 @@ fullnameOverride: ""
 service:
   type: ClusterIP
   port: 80
-
+    
 persistence:
-  enabled: false
-  # Set existingClaim to the name of an existing PVC to reuse a volume managed outside this helm chart
-  # existingClaim:
-  # If deployed on AWS you can optionally specify an existing EBS volume by ID
-  # awsVolumeId:
-
-  # Set claim.create:true  to have the helm chart manage the creation of a new PVC for this deployment
-  claim:
-    create: true
-    # storageClass:
-    # accessMode: ReadWriteOnce
-    # size: 10G
+      claim:
+        accessMode: ReadWriteOnce
+        create: true
+        size: 20G
+        storageClass: null
+      enabled: true    
 
 serviceAccount:
   # Specifies whether a ServiceAccount should be created
