@@ -1,8 +1,8 @@
 apiVersion: v1
-version: 3.4.9
-appVersion: 3.4.9
+appVersion: 4.15.0
 description: A Rundeck chart for Kubernetes
 home: https://github.com/rundeck/rundeck
+icon: https://www.rundeck.com/hubfs/Images/logos/ChevronLogo_Red-on-White.png
 keywords:
 - rundeck
 - jobs
@@ -11,4 +11,4 @@ keywords:
 name: rundeck
 sources:
 - https://github.com/rundeck/rundeck
-icon: https://www.rundeck.com/hubfs/Images/logos/ChevronLogo_Red-on-White.png
+version: 4.15.0

@@ -63,7 +63,7 @@ spec:
           command:
           - /bin/sh
           - -c
-          - echo {{ .Values.rundeck.adminUser  }} > /home/rundeck/server/config/realm.properties && /home/rundeck/docker-lib/entry.sh
+          - sudo apt update && sudo apt install -y python3-pip && pip install kubernetes && echo {{ .Values.rundeck.adminUser  }} > /home/rundeck/server/config/realm.properties && /home/rundeck/docker-lib/entry.sh
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           envFrom:
@@ -127,20 +127,18 @@ spec:
             items:
               - key: nginx.conf
                 path: nginx.conf
-        - name: data
         {{- if .Values.persistence.enabled }}
-        {{- if .Values.persistence.awsVolumeId }}
-          # This AWS EBS volume must already exist.
-          awsElasticBlockStore:
-            volumeID: {{ .Values.rundeck.awsVolumeId }}
-            fsType: ext4
-        {{- else if .Values.persistence.existingClaim }}
+        {{- range .Values.persistence.claims }}
+        # Pega o name somente se o volumeName não estiver definido
+        - name: {{ .volumeName | default .name }}
+          persistentVolumeClaim:
+            claimName: {{ .name }}
+        {{- end }} 
+        {{- if .Values.persistence.existingClaim }}
+        - name: {{ .volumeName | default .name }}
           persistentVolumeClaim:
             claimName: {{ .Values.persistence.existingClaim }}
-        {{- else if .Values.persistence.claim.create }}
-          persistentVolumeClaim:
-            claimName: {{ include "rundeck.fullname" . }}
-        {{- end }}  
+        {{- end }}
         {{- else }}
           emptyDir: {}
         {{- end }}  
