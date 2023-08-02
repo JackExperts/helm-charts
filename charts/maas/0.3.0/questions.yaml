@@ -179,6 +179,11 @@ questions:
     description: "Informe o dominio"
     type: string
     label: Informe o dominio
+  - variable: rundeck.rundeck.env.RUNDECK_GRAILS_URL
+    default: "http://{{ .Release.Name }}.{{ .Release.Namespace }}.svc.cluster.local"
+    description: "Variável de ambiente RUNDECK_GRAILS_URL. Ex: https://rundeck.example.com"
+    type: string
+    label: Informe o valor da variável RUNDECK_GRAILS_URL"
   - variable: rundeck.ingress.tls.enabled
     default: "true"
     description: "Habilita TLS"

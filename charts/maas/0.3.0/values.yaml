@@ -192,7 +192,7 @@ rundeck:
       enabled: true
       secretName: zabbix-ssl
   persistence:
-    claims:
+  #  claims:
       
       # By default 
       # - name: rundeck
