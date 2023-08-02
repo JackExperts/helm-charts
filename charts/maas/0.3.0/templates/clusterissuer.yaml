@@ -1,0 +1,19 @@
+{{- if .Values.letsencrypt.enabled -}}
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: {{ .Values.letsencrypt.name }}
+  labels:
+    {{- include "maas.labels" . | nindent 4 }}
+spec:
+  acme:
+    email: {{ .Values.letsencrypt.mail }}
+    preferredChain: ""
+    privateKeySecretRef:
+      name: {{ .Values.letsencrypt.name }}
+    server: https://acme-v02.api.letsencrypt.org/directory
+    solvers:
+    - http01:
+        ingress:
+          class: nginx
+{{- end -}}

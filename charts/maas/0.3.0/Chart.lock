@@ -1,0 +1,15 @@
+dependencies:
+- name: timescaledb-single
+  repository: file://../../timescaledb-single
+  version: 0.12.0
+- name: zabbix
+  repository: file://../../zabbix/3.3.1
+  version: 3.3.1
+- name: grafana
+  repository: file://../../grafana/6.44.9
+  version: 6.44.9
+- name: rundeck
+  repository: file://../../rundeck
+  version: 4.15.0
+digest: sha256:ecd7101976bb736dec01a0729fc9128b508aab5616dfe393ce7d32212590bc87
+generated: "2023-08-02T13:31:58.306658802-03:00"

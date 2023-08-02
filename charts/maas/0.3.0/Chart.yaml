@@ -1,0 +1,27 @@
+annotations:
+  catalog.cattle.io/display-name: Monitoring As a Service (MaaS) - Jack Experts
+  catalog.cattle.io/os: linux
+apiVersion: v2
+appVersion: 0.3.0
+dependencies:
+- condition: timescaledb-single.enabled
+  name: timescaledb-single
+  repository: file://../../timescaledb-single
+  version: 0.12.0
+- condition: zabbix.enabled
+  name: zabbix
+  repository: file://../../zabbix/3.3.1
+  version: 3.3.1
+- condition: grafana.enabled
+  name: grafana
+  repository: file://../../grafana/6.44.9
+  version: 6.44.9
+- condition: rundeck.enabled
+  name: rundeck
+  repository: file://../../rundeck
+  version: 4.15.0
+description: Monitoring As a Service (MaaS) - Jack Experts
+icon: file://img/maas.png
+name: maas
+type: application
+version: 0.3.0
