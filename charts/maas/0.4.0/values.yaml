@@ -5,7 +5,7 @@ postgresql:
   enabled: true
   image:
     repository: bitnami/postgresql
-    tag: pg15.2-ts2.10.1-p2
+    tag: 16-debian-12
   clusterName: db-zabbix
   replicaCount: 1
   loadBalancer:
