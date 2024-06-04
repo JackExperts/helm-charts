@@ -1,10 +1,10 @@
 ## Helm Chart - MaaS - Default values
 ## Jack Experts
 
-timescaledb-single:
+postgresql:
   enabled: true
   image:
-    repository: timescale/timescaledb-ha
+    repository: bitnami/postgresql
     tag: pg15.2-ts2.10.1-p2
   clusterName: db-zabbix
   replicaCount: 1
@@ -39,14 +39,14 @@ timescaledb-single:
       pullPolicy: IfNotPresent
   patroni:
     postgresql:
-        pg_hba:
-        - local     all             postgres                              peer
-        - local     all             all                                   md5
-        - hostnossl all,replication all                all                reject
-        - hostssl   all             all                127.0.0.1/32       md5
-        - hostssl   all             all                ::1/128            md5
-        - hostssl   replication     standby            all                md5
-        - hostssl   all             all                all                md5
+      pg_hba:
+      - local     all             postgres                              peer
+      - local     all             all                                   md5
+      - hostnossl all,replication all                all                reject
+      - hostssl   all             all                127.0.0.1/32       md5
+      - hostssl   all             all                ::1/128            md5
+      - hostssl   replication     standby            all                md5
+      - hostssl   all             all                all                md5
 
 
 letsencrypt:
@@ -67,7 +67,7 @@ database:
 
 zabbix:
   enabled: true
-  zabbix_image_tag: ubuntu-6.4.5
+  zabbix_image_tag: ubuntu-7.0.0
   postgresql:
     enabled: false
   db_access:
@@ -90,10 +90,10 @@ zabbix:
       #  service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
   zabbixweb:
     enabled: true
-    maas: "MaaS - Demo"
+    maas: "MaaS - Jack Experts"
     image:
       repository: zabbix/zabbix-web-nginx-pgsql
-  
+
   zabbixagent:
     enabled: true
     ZBX_PASSIVE_ALLOW: false
@@ -105,8 +105,8 @@ zabbix:
       kubernetes.io/ingress.class: "nginx"
     domain: chart-example.local
     paths:
-      - path: /
-        pathType: ImplementationSpecific
+    - path: /
+      pathType: ImplementationSpecific
     tls:
       enabled: true
       secretName: zabbix-ssl
@@ -124,7 +124,7 @@ grafana:
   adminUser: admin
   adminPassword: ""
   plugins:
-    - alexanderzobnin-zabbix-app
+  - alexanderzobnin-zabbix-app
   env:
     GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS: alexanderzobnin-zabbix-datasource
     GF_SERVER_ROOT_URL: "%(protocol)s://%(domain)s:%(http_port)s/dash/"
@@ -152,7 +152,7 @@ grafana:
         orgId: 1
         isDefault: true
         jsonData:
-          username: "grafana"        
+          username: "grafana"
         secureJsonData:
           password: "grafana"
         editable: true
@@ -175,9 +175,10 @@ rundeck:
       RUNDECK_GRAILS_URL: "http://{{ .Release.Name }}.{{ .Release.Namespace }}.svc.cluster.local"
       RUNDECK_SERVER_FORWARDED: "true"
       RUNDECK_LOGGING_STRATEGY: "CONSOLE"
+
   ingress:
     enabled: true
-    annotations: 
+    annotations:
       kubernetes.io/ingress.class: "nginx"
       cert-manager.io/issuer: "letsencrypt-maas"
       nginx.ingress.kubernetes.io/proxy-body-size: "200m"
@@ -192,19 +193,19 @@ rundeck:
       enabled: true
       secretName: zabbix-ssl
   persistence:
-  #  claims:
-      
-      # By default 
-      # - name: rundeck
-      #   volumeName: data 
-      #   accessMode: ReadWriteOnce
-      #   size: 20Gi
-      #   storageClass: null
+    #  claims:
 
-      # - name: plugins
-      #   accessMode: ReadWriteOnce
-      #   size: 1Gi
-      #   storageClass: null
+    # By default 
+    # - name: rundeck
+    #   volumeName: data 
+    #   accessMode: ReadWriteOnce
+    #   size: 20Gi
+    #   storageClass: null
+
+    # - name: plugins
+    #   accessMode: ReadWriteOnce
+    #   size: 1Gi
+    #   storageClass: null
 
     create: true # Create plugin and data PVCs
     enabled: true # Enable persistence using PVC
