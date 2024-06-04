@@ -1,13 +1,13 @@
 dependencies:
-- name: timescaledb-single
-  repository: file://../../timescaledb-single
-  version: 0.12.0
+- name: postgresql
+  repository: file://../../postgresql/
+  version: 16.3.0
 - name: zabbix
-  repository: file://../../zabbix/3.3.1
-  version: 3.3.1
+  repository: file://../../zabbix/
+  version: 5.0.0
 - name: grafana
-  repository: file://../../grafana/6.44.9
-  version: 6.44.9
+  repository: file://../../grafana/
+  version: 8.0.0
 - name: rundeck
   repository: file://../../rundeck
   version: 4.15.0
