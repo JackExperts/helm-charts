@@ -1,15 +1,15 @@
 dependencies:
 - name: postgresql
-  repository: file://../../postgresql/
-  version: 16.3.0
+  repository: https://charts.bitnami.com/bitnami
+  version: 15.5.1
 - name: zabbix
-  repository: file://../../zabbix/
+  repository: https://zabbix-community.github.io/helm-zabbix
   version: 5.0.0
 - name: grafana
-  repository: file://../../grafana/
+  repository: https://grafana.github.io/helm-charts
   version: 8.0.0
 - name: rundeck
-  repository: file://../../rundeck
-  version: 4.15.0
-digest: sha256:ecd7101976bb736dec01a0729fc9128b508aab5616dfe393ce7d32212590bc87
-generated: "2023-08-02T13:31:58.306658802-03:00"
+  repository: https://eugenmayer.github.io/helm-charts
+  version: 2.3.0
+digest: sha256:3dbce36d66f626d6bba23e9b93cfda8539ecea2b478136a7bbba86fb45f8fde2
+generated: "2024-06-04T17:13:57.475197877-03:00"

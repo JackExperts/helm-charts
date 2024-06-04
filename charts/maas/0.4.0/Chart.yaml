@@ -6,20 +6,20 @@ appVersion: 0.4.0
 dependencies:
 - condition: postgresql.enabled
   name: postgresql
-  repository: https://github.com/bitnami/charts
-  version: 16.3.0
+  repository: https://charts.bitnami.com/bitnami
+  version: 15.5.1
 - condition: zabbix.enabled
   name: zabbix
-  repository: https://github.com/zabbix-community/helm-zabbix
+  repository: https://zabbix-community.github.io/helm-zabbix
   version: 5.0.0
 - condition: grafana.enabled
   name: grafana
-  repository: https://github.com/grafana/helm-charts
+  repository: https://grafana.github.io/helm-charts
   version: 8.0.0
 - condition: rundeck.enabled
   name: rundeck
-  repository: https://github.com/JackExperts/helm-charts
-  version: 4.15.0
+  repository: https://eugenmayer.github.io/helm-charts
+  version: 2.3.0
 description: Monitoring As a Service (MaaS) - Jack Experts
 icon: file://img/maas.png
 name: maas
