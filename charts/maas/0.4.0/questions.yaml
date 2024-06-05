@@ -31,8 +31,8 @@ questions:
 ### Letsencrypt
 - variable: letsencrypt.enabled
   default: "true"
-  description: "Cria o issuer Letsencrypt para o Zabbix"
-  label: Issuer letsencrypt-maas
+  description: "Cria a issuer Letsencrypt para o Zabbix."
+  label: Issuer letsencrypt-maas.
   type: boolean
   show_subquestion_if: true
   group: "Letsencrypt"
@@ -86,35 +86,29 @@ questions:
 
 - variable: zabbix.db_access.postgres_password
   default: ""
-  description: "Senha para acesso ao banco de dados do Zabbix."
-  label: Senha de acesso ao banco
+  description: "Escolha a senha para acesso ao banco de dados do Zabbix."
+  label: Senha de acesso ao banco de dados.
   type: password
-  group: "Zabbix"
-- variable: database.create
-  default: "true"
-  label: "Cria as tabelas do Zabbix?"
-  description: "Criação das tabelas e configuração inicial do banco do Zabbix."
-  type: boolean
   group: "Zabbix"
 
 - variable: zabbix.ingress.enabled
   default: "true"
   description: "Habilita o ingress para acesso externo."
-  label: Habilita o ingress
+  label: Habilita o ingress para acesso externo.
   type: boolean
   show_subquestion_if: true
   group: "Zabbix"
   subquestions:
   - variable: zabbix.ingress.domain
     default: ""
-    description: "Informe o dominio."
+    description: "Informe o dominio para o Zabbix."
     type: string
     label: Informe o dominio.
   - variable: zabbix.ingress.tls.enabled
     default: "true"
-    description: "Habilita TLS"
+    description: "Habilita o certificado TLS."
     type: boolean
-    label: Habilita TLS
+    label: Habilita o certificado TLS.
   - variable: zabbix.ingress.tls.secretName
     default: "zabbix-ssl"
     description: "Informe a secret para guardar o certificado."
@@ -124,7 +118,7 @@ questions:
 ### Grafana ###
 - variable: grafana.enabled
   default: "false"
-  description: "Habilita o Grafana na stack."
+  description: "Habilita o Grafana na sua stack."
   label: Grafana integrado.
   type: boolean
   show_subquestion_if: true
@@ -132,19 +126,19 @@ questions:
   subquestions:
   - variable: grafana.adminUser
     default: "admin"
-    description: "Usuário de acesso ao Grafana."
+    description: "Informe o usuário de acesso ao Grafana."
     type: string
-    label: Usuário Grafana
+    label: Usuário para o Grafana.
   - variable: grafana.adminPassword
     default: ""
-    description: "Senha de acesso ao Grafana."
+    description: "Informe a senha de acesso ao Grafana."
     type: password
-    label: Senha Grafana.
+    label: Senha para o Grafana.
 
 - variable: grafana.ingress.enabled
   default: "true"
-  description: "Habilita o ingress"
-  label: Habilita o ingress.
+  description: "Habilita o ingress para acesso externo."
+  label: Habilita o Ingress para o Grafana.
   type: boolean
   show_subquestion_if: true
   group: "Grafana"
@@ -178,12 +172,12 @@ questions:
     default: ""
     description: "Informe o dominio desejado."
     type: string
-    label: Informe o dominio
+    label: Informe o dominio desejado.
   - variable: rundeck.rundeck.env.RUNDECK_GRAILS_URL
     default: "http://{{ .Release.Name }}.{{ .Release.Namespace }}.svc.cluster.local"
     description: "Variável de ambiente RUNDECK_GRAILS_URL. Ex: https://rundeck.example.com"
     type: string
-    label: Informe o valor da variável RUNDECK_GRAILS_URL"
+    label: Informe o valor da variável RUNDECK_GRAILS_URL."
   - variable: rundeck.ingress.tls.enabled
     default: "true"
     description: "Habilita TLS"
