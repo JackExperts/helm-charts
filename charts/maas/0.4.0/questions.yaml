@@ -3,7 +3,42 @@ categories:
 - Monitoring
 - application
 questions:
-### Banco de dados
+- variable: postgresAccess.unifiedSecret
+  ### Configurações  de Acesso ao Banco de Dados
+  default: "true"
+  description: "Utiliza uma secret para acesso ao banco de dados."
+  label: Utiliza uma secret para acesso ao banco de dados.
+  type: boolean
+  show_subquestion_if: true
+  group: "PostgreSQL"
+  subquestions:
+  - variable: postgresAccess.unifiedSecretName
+    default: "zabbixdb-pguser-zabbix"
+    description: "Informe o nome da secret."
+    type: string
+    label: Informe o nome da secret.
+  - variable: postgresAccess.user
+    default: "zabbix"
+    description: "Informe o usuário para acesso ao banco de dados."
+    type: string
+    label: Informe o usuário para acesso ao banco de dados.
+  - variable: postgresAccess.password
+    default: "zabbix"
+    description: "Informe a senha para acesso ao banco de dados."
+    type: password
+    label: Informe a senha para acesso ao banco de dados.
+  - variable: postgresAccess.database
+    default: "zabbix"
+    description: "Informe o nome do banco de dados."
+    type: string
+    label: Informe o nome do banco de dados.
+
+# Configurações do Banco de Dados                      
+- variable: haNodesAutoClean
+  default: "true"
+  description: "Habilita a limpeza automática de nós."
+  label: Habilita a limpeza automática de nós.
+
 - variable: postgresql.enabled
   default: "true"
   description: "Instância de banco de dados para o Zabbix."
@@ -12,24 +47,34 @@ questions:
   show_subquestion_if: true
   group: "PostgreSQL"
   subquestions:
-  - variable: postgresql.secrets.credentials.PATRONI_SUPERUSER_PASSWORD
-    default: ""
-    description: "Senha para acesso ao banco de dados do Zabbix."
-    type: password
-    label: Senha de acesso ao banco.
-  - variable: postgresql.persistentVolumes.data.size
-    default: "5Gi"
-    description: "Tamanho da partição do banco de dados."
-    type: string
-    label: Tamanho da partição do banco de dados.
-  - variable: postgresql.persistentVolumes.wal.size
-    default: "1Gi"
-    description: "Tamanho da partição WAL."
-    type: string
-    label: Tamanho da partição WAL.
 
-### Letsencrypt
+- variable: postgresql.repository
+  default: "postgres"
+  description: "Versão do PostgreSQL."
+  type: string
+  label: Repositório do PostgreSQL.
+
+- variable: postgresql.tag
+  default: "16"
+  description: "Versão do PostgreSQL."
+  type: string
+  label: Versão do PostgreSQL.
+
+- variable: postgresql.persistence.enabled
+  default: "true"
+  description: "Habilita a persistência do banco de dados."
+  type: boolean
+  label: Habilita a persistência do banco de dados.
+
+- variable: postgresql.persistence.StorageSize
+  default: "10Gi"
+  description: "Tamanho do volume para persistência do banco de dados."
+  type: string
+  label: Tamanho do volume para persistência do banco de dados.
+
+#  Configurações  de certificado SSL
 - variable: letsencrypt.enabled
+  ### Let's Encrypt
   default: "true"
   description: "Cria a issuer Letsencrypt para o Zabbix."
   label: Issuer letsencrypt-maas.
@@ -37,59 +82,39 @@ questions:
   show_subquestion_if: true
   group: "Letsencrypt"
   subquestions:
-  - variable: letsencrypt.mail
-    default: ""
-    description: "Informe o e-mail para cadastro no Letsencrypt."
-    type: string
-    label: Informe o e-mail para cadastro no Letsencrypt.
-
-### Zabbix ###
-# - variable: zabbix.zabbixweb.extraEnv[0].name
-#   default: ZBX_SERVER_NAME
-#   description: "Informe o nome da sua Stack"
-#   label: Informe o nome da sua stack
-#   show_if: "zabbix.zabbixweb.extraEnv[0].value="
-#   type: string
-#   group: "Zabbix"
-- variable: zabbix.zabbixweb.maas
+- variable: letsencrypt.mail
   default: ""
-  description: "Informe o nome da sua Stack."
-  label: Informe o nome da sua stack.
+  description: "Informe o e-mail para cadastro no Letsencrypt."
   type: string
-  group: "Zabbix"
-- variable: defaultImage
+  label: Informe o e-mail para cadastro no Letsencrypt.
+
+# Configurações  do Zabbix
+- variable: zabbixProxy.enable
+  default: "false"
+  description: "Habilita ou não o Zabbix Proxy."
+  label: Zabbix Proxy.
+
+- variable: zabbixAgent.enabled
   default: "true"
-  description: "Imagens default do chart Helm."
-  label: Use imagens defaults.
+  description: "Habilita o Zabbix Agent."
+  label: Zabbix Agent.
+
+- variable: zabbix.enabled
+  default: "true"
+  description: "Habilita o Zabbix na sua stack."
+  label: Zabbix integrado.
   type: boolean
-  show_subquestion_if: false
+  show_subquestion_if: true
   group: "Zabbix"
   subquestions:
-  ## Tag default
-  - variable: zabbix.zabbix_image_tag
-    default: "ubuntu-7.0.0"
-    description: "TAG Image Default (Server, Agent and Frontend)."
-    type: string
-    label: Image tag default
-  ## zabbix server
-  - variable: zabbix.zabbixserver.image.repository
-    default: "zabbix/zabbix-server-pgsql"
-    description: "Imagem Default Zabbix Server."
-    type: string
-    label: Zabbix Server Image Name
-  ## zabbix web
-  - variable: zabbix.zabbixweb.image.repository
-    default: "zabbix/zabbix-web-apache-pgsql"
-    description: "Imagem Default Zabbix Web."
-    type: string
-    label: Zabbix Server Image Name.
-
-- variable: zabbix.db_access.postgres_password
-  default: ""
-  description: "Escolha a senha para acesso ao banco de dados do Zabbix."
-  label: Senha de acesso ao banco de dados.
-  type: password
-  group: "Zabbix"
+- variable: zabbix.zabbixweb.enable
+  default: "true"
+  description: "Habilita o Zabbix Web."
+  label: Zabbix Web.
+- variable: zabbix.zabbixagent.enable
+  default: "true"
+  description: "Habilita o Zabbix Web."
+  label: Zabbix Web.
 
 - variable: zabbix.ingress.enabled
   default: "true"
@@ -99,24 +124,25 @@ questions:
   show_subquestion_if: true
   group: "Zabbix"
   subquestions:
-  - variable: zabbix.ingress.domain
-    default: ""
-    description: "Informe o dominio para o Zabbix."
-    type: string
-    label: Informe o dominio.
-  - variable: zabbix.ingress.tls.enabled
-    default: "true"
-    description: "Habilita o certificado TLS."
-    type: boolean
-    label: Habilita o certificado TLS.
-  - variable: zabbix.ingress.tls.secretName
-    default: "zabbix-ssl"
-    description: "Informe a secret para guardar o certificado."
-    type: string
-    show_if: "zabbix.ingress.tls.enabled=true"
+- variable: zabbix.ingress.domain
+  default: ""
+  description: "Informe o dominio para o Zabbix."
+  type: string
+  label: Informe o dominio.
+- variable: zabbix.ingress.tls.enabled
+  default: "true"
+  description: "Habilita o certificado TLS."
+  type: boolean
+  label: Habilita o certificado TLS.
+- variable: zabbix.ingress.tls.secretName
+  default: "zabbix-ssl"
+  description: "Informe a secret para guardar o certificado."
+  type: string
+  show_if: "zabbix.ingress.tls.enabled=true"
 
-### Grafana ###
+# Configurações  do Grafana
 - variable: grafana.enabled
+  ### Grafana ###
   default: "false"
   description: "Habilita o Grafana na sua stack."
   label: Grafana integrado.
@@ -124,16 +150,16 @@ questions:
   show_subquestion_if: true
   group: "Grafana"
   subquestions:
-  - variable: grafana.adminUser
-    default: "admin"
-    description: "Informe o usuário de acesso ao Grafana."
-    type: string
-    label: Usuário para o Grafana.
-  - variable: grafana.adminPassword
-    default: ""
-    description: "Informe a senha de acesso ao Grafana."
-    type: password
-    label: Senha para o Grafana.
+- variable: grafana.adminUser
+  default: "admin"
+  description: "Informe o usuário de acesso ao Grafana."
+  type: string
+  label: Usuário para o Grafana.
+- variable: grafana.adminPassword
+  default: ""
+  description: "Informe a senha de acesso ao Grafana."
+  type: password
+  label: Senha para o Grafana.
 
 - variable: grafana.ingress.enabled
   default: "true"
@@ -159,8 +185,8 @@ questions:
     type: string
     show_if: "grafana.ingress.tls.enabled=true"
 
-### Rundeck
 - variable: rundeck.enabled
+  ### Rundeck
   default: "false"
   description: "Habilita o Rundeck na stack."
   label: Rundeck na stack

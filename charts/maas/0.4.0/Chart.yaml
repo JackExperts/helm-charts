@@ -4,10 +4,7 @@ annotations:
 apiVersion: v2
 appVersion: 0.4.0
 dependencies:
-- condition: postgresql.enabled
-  name: postgresql
-  repository: https://charts.bitnami.com/bitnami
-  version: 15.5.1
+
 - condition: zabbix.enabled
   name: zabbix
   repository: https://zabbix-community.github.io/helm-zabbix
