@@ -429,10 +429,11 @@ grafana:
     hosts:
     - chart-example.local
     extraPaths: []
-    tls: []
-    #  - secretName: chart-example-tls
-    #    hosts:
-    #      - chart-example.local
+    tls:
+      enabled: true
+      secretName: "chart-example-tls"
+      hosts:
+      - chart-example.local
 
   resources: {}
   #  limits:
