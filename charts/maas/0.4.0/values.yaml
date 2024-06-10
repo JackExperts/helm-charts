@@ -40,427 +40,6 @@ postgresAccess:
   # -- Name of database
   database: "zabbix"
 
-  haNodesAutoClean:
-    enabled: true
-    image:
-      # -- Postgresql Docker image name: chose one of "postgres" or "timescale/timescaledb"
-      repository: postgres
-      # -- Tag of Docker image of Postgresql server, choice "16" for postgres "2.14.2-pg16" for timescaledb
-      # (Zabbix supports TimescaleDB 2.1.0-2.14.x. More info: https://www.zabbix.com/documentation/7.0/en/manual/installation/requirements)
-      tag: 16
-      pullPolicy: IfNotPresent
-      pullSecrets: []
-    schedule: "0 1 * * *"
-    concurrencyPolicy: "Replace"
-    deleteOlderThanSeconds: 3600
-    # -- Requests and limits of pod resources. See: [https://kubernetes.io/docs/concepts/configuration/manage-resources-containers](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers)
-    resources: {}
-    # -- Extra environment variables. A list of additional environment variables.
-    extraEnv: []
-    # -- Additional volumeMounts to the cronjob hanodes autoclean
-    extraVolumeMounts: []
-    # -- Additional containers to start within the cronjob hanodes autoclean
-    extraContainers: []
-    # -- Additional init containers to start within the cronjob hanodes autoclean
-    extraInitContainers: []
-    # -- Additional volumes to make available to the cronjob hanodes autoclean
-    extraVolumes: []
-    # -- Additional specifications to the cronjob hanodes autoclean
-    extraPodSpecs: {}
-    # -- Security Context configurations. Reference: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
-    securityContext: {}
-    # -- Labels to add to the cronjob for ha nodes autoclean
-    cronjobLabels: {}
-  jobDBSchema:
-    # -- Annotations to add to the jobs
-    jobAnnotations: {}
-    # -- Labels to add to the jobs
-    jobLabels: {}
-    # -- Additional init containers to start within the Zabbix Server Job DB Schema pod
-    extraInitContainers: []
-    # -- Additional containers to start within the Zabbix Server Job DB Schema pod
-    extraContainers: []
-    # -- Additional specifications to the Zabbix Server Job DB Schema pod
-    extraPodSpecs: {}
-    # -- Additional volumeMounts to the Zabbix Server Job DB Schema pod
-    extraVolumeMounts: []
-    # -- Additional volumes to make available to the  Zabbix Server Job DB Schema pod
-    extraVolumes: []
-    # -- Security Context configurations. Reference: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
-    securityContext: {}
-  service:
-    # -- Type of service to expose the application. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. 
-    #More details: https://kubernetes.io/docs/concepts/services-networking/service/
-    type: ClusterIP
-    # -- clusterIP is the IP address of the service and is usually assigned randomly. 
-    #If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service.
-    clusterIP:
-    # -- externalTrafficPolicy describes how nodes distribute service traffic they receive on one of the Service's "externally-facing" addresses 
-    #(NodePorts, ExternalIPs, and LoadBalancer IPs). "Local" to preserve sender's IP address. Please note that this might not work on multi-node clusters, 
-    #depending on your network settings.
-    #externalTrafficPolicy: Local
-    # -- externalIPs is a list of IP addresses for which nodes in the cluster will also accept traffic for this service. 
-    #These IPs are not managed by Kubernetes.
-    externalIPs: []
-    # -- Only applies to Service Type: LoadBalancer. This feature depends on whether the underlying cloud-provider supports specifying 
-    #the loadBalancerIP when a load balancer is created. This field will be ignored if the cloud-provider does not support the feature.
-    loadBalancerIP: ""
-    # -- If specified and supported by the platform, this will restrict traffic through the cloud-provider load-balancer 
-    #will be restricted to the specified client IPs. This field will be ignored if the cloud-provider does not support the feature.
-    loadBalancerSourceRanges: []
-    # -- loadBalancerClass is the class of the load balancer implementation this Service belongs to. 
-    #If specified, the value of this field must be a label-style identifier, with an optional prefix, e.g. "internal-vip" or 
-    #"example.com/internal-vip". Unprefixed names are reserved for end-users. This field can only be set when the Service type is 'LoadBalancer'. 
-    #If not set, the default load balancer implementation is used, today this is typically done through the cloud provider integration, 
-    #but should apply for any default implementation. If set, it is assumed that a load balancer implementation is watching for Services 
-    #with a matching class. Any default load balancer implementation (e.g. cloud providers) should ignore Services that set this field. 
-    #This field can only be set when creating or updating a Service to type 'LoadBalancer'. Once set, it can not be changed. 
-    #This field will be wiped when a service is updated to a non 'LoadBalancer' type.
-    loadBalancerClass: ""
-    # -- Supports "ClientIP" and "None". Used to maintain session affinity. Enable client IP based session affinity. 
-    #Must be ClientIP or None. Defaults to None. More info: 
-    #https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
-    sessionAffinity: None
-    # -- Port of service in Kubernetes cluster
-    port: 10051
-    # -- NodePort port to allocate on each node (only if service.type = NodePort or Loadbalancer)
-    nodePort: 31051
-    # -- Annotations for the zabbix-server service
-    annotations: {}
-    # metallb.universe.tf/address-pool: production-public-ips
-  # -- Extra environment variables. A list of additional environment variables. List can be extended with other environment variables listed here: https://github.com/zabbix/zabbix-docker/tree/6.0/Dockerfiles/server-pgsql/alpine#environment-variables. See example: https://github.com/zabbix-community/helm-zabbix/blob/master/charts/zabbix/docs/example/kind/values.yaml
-  extraEnv: []
-  #- name: ENABLE_TIMESCALEDB
-  #  value: "true"
-  # -- Annotations to add to the deployment
-  deploymentAnnotations: {}
-  # -- Labels to add to the deployment
-  deploymentLabels: {}
-  # -- Annotations to add to the containers
-  containerAnnotations: {}
-  # -- Labels to add to the containers
-  containerLabels: {}
-  # -- Additional volumeMounts to the Zabbix Server container
-  extraVolumeMounts: []
-  # -- Additional containers to start within the Zabbix Server pod
-  extraContainers: []
-  # -- Additional init containers to start within the Zabbix Server pod
-  extraInitContainers: []
-  # -- Additional volumes to make available to the Zabbix Server pod
-  extraVolumes: []
-  # -- Additional specifications to the Zabbix Server pod
-  extraPodSpecs: {}
-  # -- Security Context configurations. Reference: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
-  securityContext: {}
-  # -- The kubelet uses liveness probes to know when to restart a container. Reference: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
-  livenessProbe: {}
-  # -- The kubelet uses readiness probes to know when a container is ready to start accepting traffic. Reference: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
-  readinessProbe: {}
-  # -- The kubelet uses startup probes to know when a container application has started.  Reference: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
-  startupProbe: {}
-
-# **PostgreSQL** configurations
-postgresql:
-  # -- Create a database using Postgresql
-  enabled: true
-  image:
-    # -- Postgresql Docker image name: chose one of "postgres" or "timescale/timescaledb"
-    repository: postgres
-    # -- Tag of Docker image of Postgresql server, choice "16" for postgres "2.14.2-pg16" for timescaledb
-    # (Zabbix supports TimescaleDB 2.1.0-2.14.x. More info: https://www.zabbix.com/documentation/7.0/en/manual/installation/requirements)
-    tag: 16
-    # -- Pull policy of Docker image
-    pullPolicy: IfNotPresent
-    # -- List of dockerconfig secrets names to use when pulling images
-    pullSecrets: []
-  # -- Requests and limits of pod resources. See: [https://kubernetes.io/docs/concepts/configuration/manage-resources-containers](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers)
-  resources: {}
-  persistence:
-    # -- Whether to enable persistent storage for the postgres container or not
-    enabled: false
-    # -- Existing persistent volume claim name to be used to store posgres data
-    existingClaimName: false
-    # -- Size of the PVC to be automatically generated
-    storageSize: 5Gi
-    # -- Kubernetes uses volume access modes to match PersistentVolumeClaims and PersistentVolumes. See: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#access-modes
-    #claim_access_mode: "ReadWriteOnce"
-    # -- Storage PVC storageclass to use
-    #storageClass: my-storage-class
-  service:
-    # -- Type of service to expose the application. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer.
-    # More details: https://kubernetes.io/docs/concepts/services-networking/service/
-    type: ClusterIP
-    # -- clusterIP is the IP address of the service and is usually assigned randomly. If an address is specified manually, 
-    #is in-range (as per system configuration), and is not in use, it will be allocated to the service.
-    clusterIP:
-    # -- Port of service in Kubernetes cluster
-    port: 5432
-    # -- Annotations for the zabbix-server service
-    annotations: {}
-    # metallb.universe.tf/address-pool: production-public-ips
-  # -- Extra Postgresql runtime parameters ("-c" options)
-  extraRuntimeParameters:
-    max_connections: 50
-  # -- Extra environment variables. A list of additional environment variables.
-  extraEnv: []
-  # -- Annotations to add to the statefulset
-  statefulSetAnnotations: {}
-  # -- Labels to add to the statefulset
-  statefulSetLabels: {}
-  # -- Annotations to add to the containers
-  containerAnnotations: {}
-  # -- Labels to add to the containers
-  containerLabels: {}
-  # -- Additional volumeMounts to the postgresql container
-  extraVolumeMounts: []
-  # -- Additional containers to start within the postgresql pod
-  extraContainers: []
-  # -- Additional init containers to start within the postgresql pod
-  extraInitContainers: []
-  # -- Additional volumes to make available to the postgresql pod
-  extraVolumes: []
-  # -- Additional specifications to the postgresql pod
-  extraPodSpecs: {}
-  # -- Security Context configurations. Reference: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
-  securityContext: {}
-  # -- The kubelet uses liveness probes to know when to restart a container. Reference: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
-  livenessProbe: {}
-  # -- The kubelet uses readiness probes to know when a container is ready to start accepting traffic. Reference: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
-  readinessProbe: {}
-  # -- The kubelet uses startup probes to know when a container application has started.  Reference: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
-  startupProbe: {}
-
-# **Zabbix Proxy** configurations
-zabbixProxy:
-  # -- Enables use of **Zabbix Proxy**
-  enabled: false
-  # -- Number of replicas of ``zabbixProxy`` module
-  replicaCount: 1
-  # -- Requests and limits of pod resources. See: [https://kubernetes.io/docs/concepts/configuration/manage-resources-containers](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers)
-  resources: {}
-  image:
-    # -- Zabbix Proxy Docker image name
-    repository: zabbix/zabbix-proxy-sqlite3
-    # -- Zabbix Proxy Docker image tag, if you want to override zabbixImageTag
-    tag: null
-    # -- Pull policy of Docker image
-    pullPolicy: IfNotPresent
-    # -- List of dockerconfig secrets names to use when pulling images
-    pullSecrets: []
-  # -- The variable allows to switch Zabbix Proxy mode. By default, value is 0 - active proxy. Allowed values are 0 and 1.
-  ZBX_PROXYMODE: 0
-  # -- Zabbix Proxy hostname
-  # Case sensitive hostname
-  ZBX_HOSTNAME: zabbix-proxy # This variable is unique, case sensitive hostname.
-  # -- Zabbix Server host
-  ZBX_SERVER_HOST: zabbix-zabbix-server
-  # -- Zabbix Server port
-  ZBX_SERVER_PORT: 10051
-  # ZBX_LOADMODULE: dummy1.so,dummy2.so # The variable is list of comma separated loadable Zabbix modules. It works with volume /var/lib/zabbix/modules.
-  # The variable is used to specify debug level, from 0 to 5
-  ZBX_DEBUGLEVEL: 4
-  # The variable is used to specify timeout for processing checks. By default, value is 4.
-  ZBX_TIMEOUT: 4
-  # -- The variable enable communication with Zabbix Java Gateway to collect Java related checks. By default, value is false.
-  ZBX_JAVAGATEWAY_ENABLE: false
-  # -- Cache size
-  ZBX_VMWARECACHESIZE: 128M
-  service:
-    # -- Type of service to expose the application. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. 
-    #More details: https://kubernetes.io/docs/concepts/services-networking/service/
-    type: ClusterIP
-    # -- clusterIP is the IP address of the service and is usually assigned randomly. 
-    #If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service.
-    clusterIP:
-    # -- externalTrafficPolicy describes how nodes distribute service traffic they receive on one of the Service's "externally-facing" addresses 
-    #(NodePorts, ExternalIPs, and LoadBalancer IPs). "Local" to preserve sender's IP address. Please note that this might not work on multi-node clusters, 
-    #depending on your network settings.
-    #externalTrafficPolicy: Local
-    # -- externalIPs is a list of IP addresses for which nodes in the cluster will also accept traffic for this service. 
-    #These IPs are not managed by Kubernetes.
-    externalIPs: []
-    # -- Only applies to Service Type: LoadBalancer. This feature depends on whether the underlying cloud-provider supports specifying 
-    #the loadBalancerIP when a load balancer is created. This field will be ignored if the cloud-provider does not support the feature.
-    loadBalancerIP: ""
-    # -- If specified and supported by the platform, this will restrict traffic through the cloud-provider load-balancer 
-    #will be restricted to the specified client IPs. This field will be ignored if the cloud-provider does not support the feature.
-    loadBalancerSourceRanges: []
-    # -- loadBalancerClass is the class of the load balancer implementation this Service belongs to. 
-    #If specified, the value of this field must be a label-style identifier, with an optional prefix, e.g. "internal-vip" or 
-    #"example.com/internal-vip". Unprefixed names are reserved for end-users. This field can only be set when the Service type is 'LoadBalancer'. 
-    #If not set, the default load balancer implementation is used, today this is typically done through the cloud provider integration, 
-    #but should apply for any default implementation. If set, it is assumed that a load balancer implementation is watching for Services 
-    #with a matching class. Any default load balancer implementation (e.g. cloud providers) should ignore Services that set this field. 
-    #This field can only be set when creating or updating a Service to type 'LoadBalancer'. Once set, it can not be changed. 
-    #This field will be wiped when a service is updated to a non 'LoadBalancer' type.
-    loadBalancerClass: ""
-    # -- Supports "ClientIP" and "None". Used to maintain session affinity. Enable client IP based session affinity. 
-    #Must be ClientIP or None. Defaults to None. More info: 
-    #https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
-    sessionAffinity: None
-    # -- Port of service in Kubernetes cluster
-    port: 10051
-    # -- NodePort port to allocate on each node (only if service.type = NodePort or Loadbalancer)
-    nodePort: 31053
-    # -- Annotations for the zabbix-proxy service
-    annotations: {}
-    # metallb.universe.tf/address-pool: production-public-ips
-  # -- Extra environment variables. A list of additional environment variables. List can be extended with other environment variables listed here: https://github.com/zabbix/zabbix-docker/tree/6.0/Dockerfiles/proxy-sqlite3/alpine#environment-variables. See example: https://github.com/zabbix-community/helm-zabbix/blob/master/charts/zabbix/docs/example/kind/values.yaml
-  extraEnv: []
-  # -- Annotations to add to the statefulset
-  statefulSetAnnotations: {}
-  # -- Labels to add to the statefulset
-  statefulSetLabels: {}
-  # -- Annotations to add to the containers
-  containerAnnotations: {}
-  # -- Labels to add to the containers
-  containerLabels: {}
-  # -- Additional volumeMounts to the Zabbix Proxy container
-  extraVolumeMounts: []
-  # -- Additional containers to start within the Zabbix Proxy pod
-  extraContainers: []
-  # -- Additional init containers to start within the Zabbix Proxy pod
-  extraInitContainers: []
-  # -- Additional volumes to make available to the Zabbix Proxy pod
-  extraVolumes: []
-  # -- Additional specifications to the Zabbix Proxy pod
-  extraPodSpecs: {}
-  # -- Security Context configurations. Reference: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
-  securityContext: {}
-  # -- Extra volumeClaimTemplate for zabbixProxy statefulset
-  extraVolumeClaimTemplate: []
-  # -- The kubelet uses liveness probes to know when to restart a container. Reference: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
-  livenessProbe: {}
-  # -- The kubelet uses readiness probes to know when a container is ready to start accepting traffic. Reference: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
-  readinessProbe: {}
-  # -- The kubelet uses startup probes to know when a container application has started.  Reference: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
-  startupProbe: {}
-
-# **Zabbix Agent** configurations
-zabbixAgent:
-  # -- Enables use of **Zabbix Agent**
-  enabled: true
-  # -- Its is a default mode. Zabbix-agent will run as sidecar in zabbix-server and zabbix-proxy pods. Disable this mode if you want to run zabbix-agent as daemonSet
-  runAsSidecar: true
-  # -- Enable this mode if you want to run zabbix-agent as daemonSet. The 'zabbixAgent.runAsSidecar' option must be false.
-  runAsDaemonSet: false
-  # -- Requests and limits of pod resources. See: [https://kubernetes.io/docs/concepts/configuration/manage-resources-containers](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers)
-  resources: {}
-  image:
-    # -- Zabbix Agent Docker image name. Can use zabbix/zabbix-agent or zabbix/zabbix-agent2
-    repository: zabbix/zabbix-agent2
-    # -- Zabbix Agent Docker image tag, if you want to override zabbixImageTag
-    tag: null
-    # -- Pull policy of Docker image
-    pullPolicy: IfNotPresent
-    # -- List of dockerconfig secrets names to use when pulling images
-    pullSecrets: []
-  # -- Zabbix Server host
-  ZBX_SERVER_HOST: 0.0.0.0/0
-  # -- Zabbix Server port
-  ZBX_SERVER_PORT: 10051
-  # -- This variable is boolean (true or false) and enables or disables feature of passive checks. By default, value is true
-  ZBX_PASSIVE_ALLOW: true
-  # -- The variable is comma separated list of allowed Zabbix Server or proxy hosts for connections to Zabbix Agent container. Example: Server=127.0.0.1,192.168.1.0/24,::1,2001:db8::/32,zabbix.example.com
-  #ZBX_PASSIVESERVERS: ''
-  # -- This variable is boolean (true or false) and enables or disables feature of active checks
-  ZBX_ACTIVE_ALLOW: false
-  # -- The variable is comma separated list of allowed Zabbix Server or proxy hosts for connections to Zabbix Agent container. You may specify port.
-  #ZBX_ACTIVESERVERS: ''
-  # -- The variable is list of comma separated loadable Zabbix modules. It works with volume /var/lib/zabbix/modules.
-  #ZBX_LOADMODULE: dummy1.so,dummy2.so
-  # -- The variable is used to specify debug level, from 0 to 5
-  ZBX_DEBUGLEVEL: 3
-  # -- The variable is used to specify timeout for processing checks. By default, value is 4.
-  ZBX_TIMEOUT: 4
-  service:
-    # -- Type of service to expose the application. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. 
-    #More details: https://kubernetes.io/docs/concepts/services-networking/service/
-    type: ClusterIP
-    # -- clusterIP is the IP address of the service and is usually assigned randomly. 
-    #If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service.
-    clusterIP:
-    # -- externalTrafficPolicy describes how nodes distribute service traffic they receive on one of the Service's "externally-facing" addresses 
-    #(NodePorts, ExternalIPs, and LoadBalancer IPs). "Local" to preserve sender's IP address. Please note that this might not work on multi-node clusters, 
-    #depending on your network settings.
-    #externalTrafficPolicy: Local
-    # -- externalIPs is a list of IP addresses for which nodes in the cluster will also accept traffic for this service. 
-    #These IPs are not managed by Kubernetes.
-    externalIPs: []
-    # -- Only applies to Service Type: LoadBalancer. This feature depends on whether the underlying cloud-provider supports specifying 
-    #the loadBalancerIP when a load balancer is created. This field will be ignored if the cloud-provider does not support the feature.
-    loadBalancerIP: ""
-    # -- If specified and supported by the platform, this will restrict traffic through the cloud-provider load-balancer 
-    #will be restricted to the specified client IPs. This field will be ignored if the cloud-provider does not support the feature.
-    loadBalancerSourceRanges: []
-    # -- loadBalancerClass is the class of the load balancer implementation this Service belongs to. 
-    #If specified, the value of this field must be a label-style identifier, with an optional prefix, e.g. "internal-vip" or 
-    #"example.com/internal-vip". Unprefixed names are reserved for end-users. This field can only be set when the Service type is 'LoadBalancer'. 
-    #If not set, the default load balancer implementation is used, today this is typically done through the cloud provider integration, 
-    #but should apply for any default implementation. If set, it is assumed that a load balancer implementation is watching for Services 
-    #with a matching class. Any default load balancer implementation (e.g. cloud providers) should ignore Services that set this field. 
-    #This field can only be set when creating or updating a Service to type 'LoadBalancer'. Once set, it can not be changed. 
-    #This field will be wiped when a service is updated to a non 'LoadBalancer' type.
-    loadBalancerClass: ""
-    # -- Supports "ClientIP" and "None". Used to maintain session affinity. Enable client IP based session affinity. 
-    #Must be ClientIP or None. Defaults to None. More info: 
-    #https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
-    sessionAffinity: None
-    # -- Port of service in Kubernetes cluster
-    port: 10050
-    # -- NodePort port to allocate on each node (only if service.type = NodePort or Loadbalancer)
-    nodePort: 31050
-    # -- Annotations for the zabbix-agent service
-    annotations: {}
-    # metallb.universe.tf/address-pool: production-public-ips
-  # -- If true, agent pods mounts host / at /host/root
-  hostRootFsMount: true
-  # -- Extra environment variables. A list of additional environment variables. List can be extended with other environment variables listed here: https://github.com/zabbix/zabbix-docker/tree/6.0/Dockerfiles/agent2/alpine#environment-variables. See example: https://github.com/zabbix-community/helm-zabbix/blob/master/charts/zabbix/docs/example/kind/values.yaml
-  extraEnv: []
-  # -- Additional volumeMounts to the zabbix Agent container
-  extraVolumeMounts: []
-  # -- Annotations to add to the daemonSet
-  daemonSetAnnotations: {}
-  # -- Labels to add to the daemonSet
-  daemonSetLabels: {}
-  # -- Labels to add to the deployment
-  deploymentLabels: {}
-  # -- Annotations to add to the containers
-  containerAnnotations: {}
-  # -- Labels to add to the containers
-  containerLabels: {}
-  # -- Additional containers to start within the Zabbix Agent pod
-  extraContainers: []
-  # -- Additional init containers to start within the Zabbix Agent pod
-  extraInitContainers: []
-  # -- Additional volumes to make available to the Zabbix Agent pod
-  extraVolumes: []
-  # -- Additional specifications to the Zabbix Agent pod
-  extraPodSpecs: {}
-  # -- Security Context configurations. Reference: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
-  securityContext: {}
-  # -- The kubelet uses liveness probes to know when to restart a container. Reference: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
-  livenessProbe:
-    tcpSocket:
-      # -- Port number/alias name of the container
-      port: zabbix-agent
-    timeoutSeconds: 3
-    failureThreshold: 3
-    periodSeconds: 10
-    successThreshold: 1
-  # -- The kubelet uses readiness probes to know when a container is ready to start accepting traffic. Reference: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
-  readinessProbe: {}
-  # -- The kubelet uses startup probes to know when a container application has started.  Reference: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
-  startupProbe:
-    tcpSocket:
-      # -- Port number/alias name of the container
-      port: zabbix-agent
-    initialDelaySeconds: 15
-    periodSeconds: 5
-    timeoutSeconds: 3
-    failureThreshold: 5
-    successThreshold: 1
-
 letsencrypt:
   # -- Enables Let's Encrypt
   enabled: true
@@ -506,9 +85,31 @@ zabbix:
     # ZBX_PROXYCONFIGFREQUENCY=3600
     # ZBX_PROXYDATAFREQUENCY=1
     # ZBX_LOADMODULE="dummy1.so,dummy2.so,dummy10.so"
-
     image:
       repository: zabbix/zabbix-web-nginx-pgsql
+    ingress:
+      # -- Enables Ingress
+      enabled: false
+      # -- Ingress annotations
+      annotations: {}
+      # kubernetes.io/ingress.class: nginx
+      # kubernetes.io/tls-acme: "true"
+      # -- Ingress hosts
+      hosts:
+      - host: chart-example.local
+        paths:
+        - path: /
+          pathType: ImplementationSpecific
+      # -- Ingress TLS configuration
+      tls: []
+      #  - secretName: chart-example-tls
+      #    hosts:
+      #      - chart-example.local
+      # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
+      # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
+      # ingressClassName: nginx
+      # -- pathType is only for k8s >= 1.1=
+      pathType: Prefix
 
   zabbixagent:
     enabled: true
@@ -524,80 +125,298 @@ zabbix:
     ZBX_SERVER_HOST: 127.0.0.1
     ZBX_SERVER_PORT: 10051
     ZBX_ACTIVE_ALLOW: true
-ingress:
-  # -- Enables Ingress
-  enabled: false
-  # -- Ingress annotations
-  annotations: {}
-  # kubernetes.io/ingress.class: nginx
-  # kubernetes.io/tls-acme: "true"
-  # -- Ingress hosts
-  hosts:
-  - host: chart-example.local
-    paths:
-    - path: /
-      pathType: ImplementationSpecific
-  # -- Ingress TLS configuration
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
-  # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
-  # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
-  # ingressClassName: nginx
-  # -- pathType is only for k8s >= 1.1=
-  pathType: Prefix
 
+
+  haNodesAutoClean:
+    enabled: true
+    image:
+      # -- Postgresql Docker image name: chose one of "postgres" or "timescale/timescaledb"
+      repository: postgres
+      # -- Tag of Docker image of Postgresql server, choice "16" for postgres "2.14.2-pg16" for timescaledb
+      # (Zabbix supports TimescaleDB 2.1.0-2.14.x. More info: https://www.zabbix.com/documentation/7.0/en/manual/installation/requirements)
+      tag: 16
+      pullPolicy: IfNotPresent
+      pullSecrets: []
+    schedule: "0 1 * * *"
+    concurrencyPolicy: "Replace"
+    deleteOlderThanSeconds: 3600
+    # -- Requests and limits of pod resources. See: [https://kubernetes.io/docs/concepts/configuration/manage-resources-containers](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers)
+    resources: {}
+    # -- Extra environment variables. A list of additional environment variables.
+    extraEnv: []
+    # -- Additional volumeMounts to the cronjob hanodes autoclean
+    extraVolumeMounts: []
+    # -- Additional containers to start within the cronjob hanodes autoclean
+    extraContainers: []
+    # -- Additional init containers to start within the cronjob hanodes autoclean
+    extraInitContainers: []
+    # -- Additional volumes to make available to the cronjob hanodes autoclean
+    extraVolumes: []
+    # -- Additional specifications to the cronjob hanodes autoclean
+    extraPodSpecs: {}
+    # -- Security Context configurations. Reference: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+    securityContext: {}
+    # -- Labels to add to the cronjob for ha nodes autoclean
+    cronjobLabels: {}
+  jobDBSchema:
+    jobAnnotations: {}
+    jobLabels: {}
+    extraInitContainers: []
+    extraContainers: []
+    extraPodSpecs: {}
+    extraVolumeMounts: []
+    extraVolumes: []
+    securityContext: {}
+  service:
+    type: ClusterIP
+    clusterIP:
+    externalIPs: []
+    loadBalancerIP: ""
+    loadBalancerSourceRanges: []
+    loadBalancerClass: ""
+    sessionAffinity: None
+    port: 10051
+    nodePort: 31051
+    annotations: {}
+  extraEnv:
+  - name: ENABLE_TIMESCALEDB
+    value: "true"
+  deploymentAnnotations: {}
+  # -- Labels to add to the deployment
+  deploymentLabels: {}
+  # -- Annotations to add to the containers
+  containerAnnotations: {}
+  # -- Labels to add to the containers
+  containerLabels: {}
+  # -- Additional volumeMounts to the Zabbix Server container
+  extraVolumeMounts: []
+  # -- Additional containers to start within the Zabbix Server pod
+  extraContainers: []
+  # -- Additional init containers to start within the Zabbix Server pod
+  extraInitContainers: []
+  # -- Additional volumes to make available to the Zabbix Server pod
+  extraVolumes: []
+  # -- Additional specifications to the Zabbix Server pod
+  extraPodSpecs: {}
+  # -- Security Context configurations. Reference: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+  securityContext: {}
+  # -- The kubelet uses liveness probes to know when to restart a container. Reference: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
+  livenessProbe: {}
+  # -- The kubelet uses readiness probes to know when a container is ready to start accepting traffic. Reference: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
+  readinessProbe: {}
+  # -- The kubelet uses startup probes to know when a container application has started.  Reference: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
+  startupProbe: {}
+
+  # **PostgreSQL** configurations
+  postgresql:
+    # -- Create a database using Postgresql
+    enabled: true
+    image:
+      # -- Postgresql Docker image name: chose one of "postgres" or "timescale/timescaledb"
+      repository: postgres
+      # -- Tag of Docker image of Postgresql server, choice "16" for postgres "2.14.2-pg16" for timescaledb
+      # (Zabbix supports TimescaleDB 2.1.0-2.14.x. More info: https://www.zabbix.com/documentation/7.0/en/manual/installation/requirements)
+      tag: 16
+      # -- Pull policy of Docker image
+      pullPolicy: IfNotPresent
+      # -- List of dockerconfig secrets names to use when pulling images
+      pullSecrets: []
+    # -- Requests and limits of pod resources. See: [https://kubernetes.io/docs/concepts/configuration/manage-resources-containers](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers)
+    resources: {}
+    persistence:
+      # -- Whether to enable persistent storage for the postgres container or not
+      enabled: true
+      # -- Existing persistent volume claim name to be used to store posgres data
+      existingClaimName: false
+      # -- Size of the PVC to be automatically generated
+      storageSize: 5Gi
+      # -- Kubernetes uses volume access modes to match PersistentVolumeClaims and PersistentVolumes. See: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#access-modes
+      #claim_access_mode: "ReadWriteOnce"
+      # -- Storage PVC storageclass to use
+      #storageClass: my-storage-class
+    service:
+      # -- Type of service to expose the application. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer.
+      # More details: https://kubernetes.io/docs/concepts/services-networking/service/
+      type: ClusterIP
+      # -- clusterIP is the IP address of the service and is usually assigned randomly. If an address is specified manually, 
+      #is in-range (as per system configuration), and is not in use, it will be allocated to the service.
+      clusterIP:
+      # -- Port of service in Kubernetes cluster
+      port: 5432
+      # -- Annotations for the zabbix-server service
+      annotations: {}
+      # metallb.universe.tf/address-pool: production-public-ips
+    # -- Extra Postgresql runtime parameters ("-c" options)
+    extraRuntimeParameters:
+      max_connections: 50
+    # -- Extra environment variables. A list of additional environment variables.
+    extraEnv: []
+    # -- Annotations to add to the statefulset
+    statefulSetAnnotations: {}
+    # -- Labels to add to the statefulset
+    statefulSetLabels: {}
+    # -- Annotations to add to the containers
+    containerAnnotations: {}
+    # -- Labels to add to the containers
+    containerLabels: {}
+    # -- Additional volumeMounts to the postgresql container
+    extraVolumeMounts: []
+    # -- Additional containers to start within the postgresql pod
+    extraContainers: []
+    # -- Additional init containers to start within the postgresql pod
+    extraInitContainers: []
+    # -- Additional volumes to make available to the postgresql pod
+    extraVolumes: []
+    # -- Additional specifications to the postgresql pod
+    extraPodSpecs: {}
+    # -- Security Context configurations. Reference: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+    securityContext: {}
+    # -- The kubelet uses liveness probes to know when to restart a container. Reference: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
+    livenessProbe: {}
+    # -- The kubelet uses readiness probes to know when a container is ready to start accepting traffic. Reference: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
+    readinessProbe: {}
+    # -- The kubelet uses startup probes to know when a container application has started.  Reference: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
+    startupProbe: {}
+
+# **Zabbix Proxy** configurations
+zabbixProxy:
+  # -- Enables use of **Zabbix Proxy**
+  enabled: false
+  # -- Number of replicas of ``zabbixProxy`` module
+  replicaCount: 1
+  # -- Requests and limits of pod resources. See: [https://kubernetes.io/docs/concepts/configuration/manage-resources-containers](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers)
+  resources: {}
+  image:
+    # -- Zabbix Proxy Docker image name
+    repository: zabbix/zabbix-proxy-sqlite3
+    # -- Zabbix Proxy Docker image tag, if you want to override zabbixImageTag
+    tag: null
+    # -- Pull policy of Docker image
+    pullPolicy: IfNotPresent
+    # -- List of dockerconfig secrets names to use when pulling images
+    pullSecrets: []
+  # -- The variable allows to switch Zabbix Proxy mode. By default, value is 0 - active proxy. Allowed values are 0 and 1.
+  ZBX_PROXYMODE: 0
+  # -- Zabbix Proxy hostname
+  # Case sensitive hostname
+  ZBX_HOSTNAME: zabbix-proxy # This variable is unique, case sensitive hostname.
+  # -- Zabbix Server host
+  ZBX_SERVER_HOST: zabbix-zabbix-server
+  # -- Zabbix Server port
+  ZBX_SERVER_PORT: 10051
+  # ZBX_LOADMODULE: dummy1.so,dummy2.so # The variable is list of comma separated loadable Zabbix modules. It works with volume /var/lib/zabbix/modules.
+  # The variable is used to specify debug level, from 0 to 5
+  ZBX_DEBUGLEVEL: 4
+  # The variable is used to specify timeout for processing checks. By default, value is 4.
+  ZBX_TIMEOUT: 4
+  # -- The variable enable communication with Zabbix Java Gateway to collect Java related checks. By default, value is false.
+  ZBX_JAVAGATEWAY_ENABLE: false
+  # -- Cache size
+  ZBX_VMWARECACHESIZE: 128M
+  service:
+    # -- Type of service to expose the application. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. 
+    #More details: https://kubernetes.io/docs/concepts/services-networking/service/
+    type: ClusterIP
+    clusterIP:
+    externalIPs: []
+    # -- Only applies to Service Type: LoadBalancer. This feature depends on whether the underlying cloud-provider supports specifying 
+    #the loadBalancerIP when a load balancer is created. This field will be ignored if the cloud-provider does not support the feature.
+    loadBalancerIP: ""
+    # -- If specified and supported by the platform, this will restrict traffic through the cloud-provider load-balancer 
+    #will be restricted to the specified client IPs. This field will be ignored if the cloud-provider does not support the feature.
+    loadBalancerSourceRanges: []
+    loadBalancerClass: ""
+    # -- Supports "ClientIP" and "None". Used to maintain session affinity. Enable client IP based session affinity. 
+    #Must be ClientIP or None. Defaults to None. More info: 
+    #https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
+    sessionAffinity: None
+    # -- Port of service in Kubernetes cluster
+    port: 10051
+    # -- NodePort port to allocate on each node (only if service.type = NodePort or Loadbalancer)
+    nodePort: 31053
+    # -- Annotations for the zabbix-proxy service
+    annotations: {}
+    # metallb.universe.tf/address-pool: production-public-ips
+  # -- Extra environment variables. A list of additional environment variables. List can be extended with other environment variables listed here: https://github.com/zabbix/zabbix-docker/tree/6.0/Dockerfiles/proxy-sqlite3/alpine#environment-variables. See example: https://github.com/zabbix-community/helm-zabbix/blob/master/charts/zabbix/docs/example/kind/values.yaml
+  extraEnv: []
+  # -- Annotations to add to the statefulset
+  statefulSetAnnotations: {}
+  # -- Labels to add to the statefulset
+  statefulSetLabels: {}
+  # -- Annotations to add to the containers
+  containerAnnotations: {}
+  # -- Labels to add to the containers
+  containerLabels: {}
+  # -- Additional volumeMounts to the Zabbix Proxy container
+  extraVolumeMounts: []
+  # -- Additional containers to start within the Zabbix Proxy pod
+  extraContainers: []
+  # -- Additional init containers to start within the Zabbix Proxy pod
+  extraInitContainers: []
+  # -- Additional volumes to make available to the Zabbix Proxy pod
+  extraVolumes: []
+  # -- Additional specifications to the Zabbix Proxy pod
+  extraPodSpecs: {}
+  # -- Security Context configurations. Reference: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+  securityContext: {}
+  # -- Extra volumeClaimTemplate for zabbixProxy statefulset
+  extraVolumeClaimTemplate: []
+  # -- The kubelet uses liveness probes to know when to restart a container. Reference: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
+  livenessProbe: {}
+  # -- The kubelet uses readiness probes to know when a container is ready to start accepting traffic. Reference: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
+  readinessProbe: {}
+  # -- The kubelet uses startup probes to know when a container application has started.  Reference: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
+  startupProbe: {}
 grafana:
   enabled: false
-persistence:
-  type: pvc
-  enabled: false
-  # storageClassName: default
-  accessModes:
-  - ReadWriteOnce
-  size: 10Gi
-# Administrator credentials when not using an existing secret (see below)
-adminUser: admin
-adminPassword: admin
+  persistence:
+    type: pvc
+    enabled: false
+    # storageClassName: default
+    accessModes:
+    - ReadWriteOnce
+    size: 10Gi
+    # Administrator credentials when not using an existing secret (see below)
+  adminUser: admin
+  adminPassword: admin
 
-# Use an existing secret for the admin user.
-admin:
-  ## Name of the secret. Can be templated.
-  existingSecret: ""
-  userKey: admin-user
-  passwordKey: admin-password
+  # Use an existing secret for the admin user.
+  admin:
+    ## Name of the secret. Can be templated.
+    existingSecret: ""
+    userKey: admin-user
+    passwordKey: admin-password
 
-plugins:
-- alexanderzobnin-zabbix-app
+  plugins:
+  - alexanderzobnin-zabbix-app
 
-datasources:
-  datasources.yaml:
-    apiVersion: 1
-    datasources:
-    - name: "Zabbix"
-      type: "alexanderzobnin-zabbix-datasource"
-      url: "http://zabbix-web/api_jsonrpc.php"
-      access: "proxy"
-      orgId: 1
-      isDefault: true
-      jsonData:
-        username: "grafana"
-      secureJsonData:
-        password: "grafana"
-      editable: true
-dashboards:
-  default:
-    system-status:
-      file: dashboards/system-status.json
-    cpu-utilization:
-      file: dashboards/cpu-utilization.json
-    dashboard-servers:
-      file: dashboards/dashboard-servers.json
-    memory-utilization:
-      file: dashboards/memory-utilization.json
-    disk-utilization:
-      file: dashboards/disk-utilization.json
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+      - name: "Zabbix"
+        type: "alexanderzobnin-zabbix-datasource"
+        url: "http://zabbix-web/api_jsonrpc.php"
+        access: "proxy"
+        orgId: 1
+        isDefault: true
+        jsonData:
+          username: "grafana"
+        secureJsonData:
+          password: "grafana"
+        editable: true
+  dashboards:
+    default:
+      system-status:
+        file: dashboards/system-status.json
+      cpu-utilization:
+        file: dashboards/cpu-utilization.json
+      dashboard-servers:
+        file: dashboards/dashboard-servers.json
+      memory-utilization:
+        file: dashboards/memory-utilization.json
+      disk-utilization:
+        file: dashboards/disk-utilization.json
 
   ingress:
     enabled: false
@@ -614,36 +433,36 @@ dashboards:
     # pathType is only for k8s >= 1.1=
     pathType: Prefix
 
-  hosts:
-  - chart-example.local
-  ## Extra paths to prepend to every host configuration. This is useful when working with annotation based services.
-  extraPaths: []
-  # - path: /*
-  #   backend:
-  #     serviceName: ssl-redirect
-  #     servicePort: use-annotation
-  ## Or for k8s > 1.19
-  # - path: /*
-  #   pathType: Prefix
-  #   backend:
-  #     service:
-  #       name: ssl-redirect
-  #       port:
-  #         name: use-annotation
+    hosts:
+    - chart-example.local
+    ## Extra paths to prepend to every host configuration. This is useful when working with annotation based services.
+    extraPaths: []
+    # - path: /*
+    #   backend:
+    #     serviceName: ssl-redirect
+    #     servicePort: use-annotation
+    ## Or for k8s > 1.19
+    # - path: /*
+    #   pathType: Prefix
+    #   backend:
+    #     service:
+    #       name: ssl-redirect
+    #       port:
+    #         name: use-annotation
 
 
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
+    tls: []
+    #  - secretName: chart-example-tls
+    #    hosts:
+    #      - chart-example.local
 
-resources: {}
-#  limits:
-#    cpu: 100m
-#    memory: 128Mi
-#  requests:
-#    cpu: 100m
-#    memory: 128Mi
+  resources: {}
+  #  limits:
+  #    cpu: 100m
+  #    memory: 128Mi
+  #  requests:
+  #    cpu: 100m
+  #    memory: 128Mi
 
 rundeck:
   enabled: false
