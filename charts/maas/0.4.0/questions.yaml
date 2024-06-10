@@ -109,7 +109,7 @@ questions:
   show_subquestion_if: true
   group: "Zabbix"
   subquestions:
-- variable: zabbix.zabbixweb.ingress.hosts.host
+- variable: zabbix.zabbixweb.ingress.hosts
   default: ""
   description: "Informe o dominio para o Zabbix."
   type: string
