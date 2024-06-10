@@ -164,18 +164,23 @@ questions:
   - variable: grafana.ingress.hosts
     default: ""
     description: "Informe o dominio (recomenda-se usar o mesmo do Zabbix)."
-    type: string
+    type: array
     label: Informe o dominio desejado.
+    group: "Grafana"
+
   - variable: "grafana.ingress.tls"
     default: "true"
     description: "Habilita TLS"
     type: boolean
     label: Habilita TLS
+    group: "Grafana"
+
   - variable: grafana.ingress.tls.secretName
     default: "zabbix-ssl"
     description: "Informe a secret para guardar o certificado (o mesmo do Zabbix)."
     type: string
     show_if: "grafana.ingress.tls.enabled=true"
+    group: "Grafana"
 
 - variable: rundeck.enabled
   ### Rundeck
