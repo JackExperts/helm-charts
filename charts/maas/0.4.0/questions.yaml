@@ -72,27 +72,17 @@ questions:
   type: string
   label: Tamanho do volume para persistência do banco de dados.
 
-#  Configurações  de certificado SSL
-- variable: letsencrypt.enabled
-  ### Let's Encrypt
-  default: "true"
-  description: "Cria a issuer Letsencrypt para o Zabbix."
-  label: Issuer letsencrypt-maas.
-  type: boolean
-  show_subquestion_if: true
-  group: "Letsencrypt"
-  subquestions:
-- variable: letsencrypt.mail
-  default: ""
-  description: "Informe o e-mail para cadastro no Letsencrypt."
-  type: string
-  label: Informe o e-mail para cadastro no Letsencrypt.
-
+# Configurações do Zabbix
 # Configurações  do Zabbix
 - variable: zabbixProxy.enable
   default: "false"
   description: "Habilita ou não o Zabbix Proxy."
   label: Zabbix Proxy.
+
+- variable: zabbixProxy.replicaCount
+  default: "1"
+  description: "Número de replicas do Zabbix Proxy."
+  label: Número de replicas.
 
 - variable: zabbixAgent.enabled
   default: "true"
@@ -102,15 +92,14 @@ questions:
 - variable: zabbix.enabled
   default: "true"
   description: "Habilita o Zabbix na sua stack."
-  label: Zabbix integrado.
-  type: boolean
-  show_subquestion_if: true
-  group: "Zabbix"
+  label: Zabbix server habilitado.
+
   subquestions:
 - variable: zabbix.zabbixweb.enable
   default: "true"
   description: "Habilita o Zabbix Web."
   label: Zabbix Web.
+
 - variable: zabbix.zabbixagent.enable
   default: "true"
   description: "Habilita o Zabbix Web."
@@ -139,6 +128,7 @@ questions:
   description: "Informe a secret para guardar o certificado."
   type: string
   show_if: "zabbix.ingress.tls.enabled=true"
+
 
 # Configurações  do Grafana
 - variable: grafana.enabled
@@ -215,3 +205,18 @@ questions:
     type: string
     show_if: "rundeck.ingress.tls.enabled=true"
 
+#  Configurações  de certificado SSL
+- variable: letsencrypt.enabled
+  ### Let's Encrypt
+  default: "true"
+  description: "Cria a issuer Letsencrypt para o Zabbix."
+  label: Issuer letsencrypt-maas.
+  type: boolean
+  show_subquestion_if: true
+  group: "Letsencrypt"
+  subquestions:
+- variable: letsencrypt.mail
+  default: ""
+  description: "Informe o e-mail para cadastro no Letsencrypt."
+  type: string
+  label: Informe o e-mail para cadastro no Letsencrypt.
