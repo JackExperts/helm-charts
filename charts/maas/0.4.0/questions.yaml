@@ -71,7 +71,7 @@ questions:
   label: Habilita a persistência do banco de dados.
   group: "PostgreSQL"
 
-- variable: postgresql.persistence.storageSize
+- variable: postgresql.persistence.enabled.storageSize
   default: "10Gi"
   description: "Tamanho do volume para persistência do banco de dados."
   type: string
