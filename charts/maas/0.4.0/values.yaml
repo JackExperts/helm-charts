@@ -550,68 +550,100 @@ ingress:
 
 grafana:
   enabled: false
-  persistence:
-    enabled: true
-    size: 2Gi
-  adminUser: admin
-  adminPassword: ""
-  plugins:
-  - alexanderzobnin-zabbix-app
-  env:
-    GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS: alexanderzobnin-zabbix-datasource
-    GF_SERVER_ROOT_URL: "%(protocol)s://%(domain)s:%(http_port)s/dash/"
-    GF_SERVER_SERVE_FROM_SUB_PATH: true
-  dashboards:
-    default:
-      system-status:
-        file: dashboards/system-status.json
-      cpu-utilization:
-        file: dashboards/cpu-utilization.json
-      dashboard-servers:
-        file: dashboards/dashboard-servers.json
-      memory-utilization:
-        file: dashboards/memory-utilization.json
-      disk-utilization:
-        file: dashboards/disk-utilization.json
-  datasources:
-    datasources.yaml:
-      apiVersion: 1
-      datasources:
-      - name: "Zabbix"
-        type: "alexanderzobnin-zabbix-datasource"
-        url: "http://zabbix-web/api_jsonrpc.php"
-        access: "proxy"
-        orgId: 1
-        isDefault: true
-        jsonData:
-          username: "grafana"
-        secureJsonData:
-          password: "grafana"
-        editable: true
+persistence:
+  type: pvc
+  enabled: false
+  # storageClassName: default
+  accessModes:
+  - ReadWriteOnce
+  size: 10Gi
+# Administrator credentials when not using an existing secret (see below)
+adminUser: admin
+# adminPassword: strongpassword
+
+# Use an existing secret for the admin user.
+admin:
+  ## Name of the secret. Can be templated.
+  existingSecret: ""
+  userKey: admin-user
+  passwordKey: admin-password
+
+plugins:
+- alexanderzobnin-zabbix-app
+
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+    - name: "Zabbix"
+      type: "alexanderzobnin-zabbix-datasource"
+      url: "http://zabbix-web/api_jsonrpc.php"
+      access: "proxy"
+      orgId: 1
+      isDefault: true
+      jsonData:
+        username: "grafana"
+      secureJsonData:
+        password: "grafana"
+      editable: true
+dashboards:
+  default:
+    system-status:
+      file: dashboards/system-status.json
+    cpu-utilization:
+      file: dashboards/cpu-utilization.json
+    dashboard-servers:
+      file: dashboards/dashboard-servers.json
+    memory-utilization:
+      file: dashboards/memory-utilization.json
+    disk-utilization:
+      file: dashboards/disk-utilization.json
 
   ingress:
-    # -- Enables Ingress
     enabled: false
-  # -- Ingress annotations
-  annotations: {}
-  # kubernetes.io/ingress.class: nginx
-  # kubernetes.io/tls-acme: "true"
-  # -- Ingress hosts
+    # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
+    # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
+    # ingressClassName: nginx
+    # Values can be templated
+    annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+    labels: {}
+    path: /
+
+    # pathType is only for k8s >= 1.1=
+    pathType: Prefix
+
   hosts:
-  - host: chart-example.local
-    paths:
-    - path: /
-      pathType: ImplementationSpecific
-  # -- Ingress TLS configuration
+  - chart-example.local
+  ## Extra paths to prepend to every host configuration. This is useful when working with annotation based services.
+  extraPaths: []
+  # - path: /*
+  #   backend:
+  #     serviceName: ssl-redirect
+  #     servicePort: use-annotation
+  ## Or for k8s > 1.19
+  # - path: /*
+  #   pathType: Prefix
+  #   backend:
+  #     service:
+  #       name: ssl-redirect
+  #       port:
+  #         name: use-annotation
+
+
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
-  # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
-  # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
-  # ingressClassName: nginx
-  # -- pathType is only for k8s >= 1.1=
-  pathType: Prefix
+
+resources: {}
+#  limits:
+#    cpu: 100m
+#    memory: 128Mi
+#  requests:
+#    cpu: 100m
+#    memory: 128Mi
 
 rundeck:
   enabled: false
