@@ -84,22 +84,10 @@ questions:
   label: Zabbix Proxy.
   group: "Zabbix"
 
-- variable: zabbixProxy.replicaCount
-  default: "1"
-  description: "Número de replicas do Zabbix Proxy."
-  label: Número de replicas.
-  group: "Zabbix"
-
-- variable: zabbixAgent.enabled
-  default: "true"
-  description: "Habilita o Zabbix Agent."
-  label: Zabbix Agent.
-  group: "Zabbix"
-
 - variable: zabbix.enabled
   default: "true"
   description: "Habilita o Zabbix na sua stack."
-  label: Zabbix server habilitado.
+  label: Zabbix Server.
   group: "Zabbix"
   subquestions:
 - variable: zabbix.zabbixweb.enable
@@ -110,8 +98,8 @@ questions:
 
 - variable: zabbix.zabbixagent.enable
   default: "true"
-  description: "Habilita o Zabbix Web."
-  label: Zabbix Web.
+  description: "Habilita o Zabbix Agent."
+  label: Zabbix Agent.
   group: "Zabbix"
 
 - variable: zabbix.ingress.enabled
@@ -235,3 +223,5 @@ questions:
   description: "Informe o e-mail para cadastro no Letsencrypt."
   type: string
   label: Informe o e-mail para cadastro no Letsencrypt.
+  group: "Letsencrypt"
+
