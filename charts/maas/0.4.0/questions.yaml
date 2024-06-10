@@ -41,7 +41,7 @@ questions:
   group: "PostgreSQL"
   type: boolean
 
-- variable: postgresql.enabled
+- variable: zabbix.postgresql.enabled
   default: "true"
   description: "Instância de banco de dados para o Zabbix."
   label: Habilita o banco de dados PostgreSQL dentro da stack.
@@ -49,35 +49,35 @@ questions:
   show_subquestion_if: true
   group: "PostgreSQL"
   subquestions:
-  - variable: postgresql.repository
+  - variable: zabbix.postgresql.repository
     default: "postgres"
     description: "Versão do PostgreSQL."
     type: string
     label: Repositório do PostgreSQL.
     group: "PostgreSQL"
 
-  - variable: postgresql.tag
+  - variable: zabbix.postgresql.tag
     default: "16"
     description: "Versão do PostgreSQL."
     type: string
     label: Versão do PostgreSQL.
     group: "PostgreSQL"
 
-  - variable: postgresql.persistence.enabled
+  - variable: zabbix.postgresql.persistence.enabled
     default: "true"
     description: "Habilita a persistência do banco de dados."
     type: boolean
     label: Habilita a persistência do banco de dados.
     group: "PostgreSQL"
 
-  - variable: postgresql.persistence.enabled.storageSize
+  - variable: zabbix.postgresql.persistence.storageSize
     default: "10Gi"
     description: "Tamanho do volume para persistência do banco de dados."
     type: string
     label: Tamanho do volume para persistência do banco de dados.
     group: "PostgreSQL"
 # Configurações  do Zabbix
-- variable: zabbixProxy.enable
+- variable: zabbix.zabbixProxy.enable
   default: "false"
   description: "Habilita ou não o Zabbix Proxy."
   label: Zabbix Proxy.
@@ -101,7 +101,7 @@ questions:
   label: Zabbix Agent.
   group: "Zabbix"
 
-- variable: zabbix.ingress.enabled
+- variable: zabbix.zabbixweb.ingress.enabled
   default: "true"
   description: "Habilita o ingress para acesso externo."
   label: Habilita o ingress para acesso externo.
@@ -109,14 +109,14 @@ questions:
   show_subquestion_if: true
   group: "Zabbix"
   subquestions:
-- variable: zabbix.ingress.domain
+- variable: zabbix.zabbixweb.ingress.hosts.host
   default: ""
   description: "Informe o dominio para o Zabbix."
   type: string
   label: Informe o dominio.
   group: "Zabbix"
 
-- variable: zabbix.ingress.tls.enabled
+- variable: zabbix.zabbixweb.ingress.tls
   default: "true"
   description: "Habilita o certificado TLS."
   type: boolean
@@ -166,7 +166,7 @@ questions:
     description: "Informe o dominio (recomenda-se usar o mesmo do Zabbix)."
     type: string
     label: Informe o dominio desejado.
-  - variable: "grafana.ingress.tls.enabled"
+  - variable: "grafana.ingress.tls"
     default: "true"
     description: "Habilita TLS"
     type: boolean
