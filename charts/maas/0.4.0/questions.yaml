@@ -162,12 +162,12 @@ questions:
   show_subquestion_if: true
   group: "Grafana"
   subquestions:
-  - variable: grafana.ingress.domain
+  - variable: grafana.ingress.hosts
     default: ""
     description: "Informe o dominio (recomenda-se usar o mesmo do Zabbix)."
     type: string
     label: Informe o dominio desejado.
-  - variable: grafana.ingress.tls.enabled
+  - variable: "grafana.ingress.tls.enabled"
     default: "true"
     description: "Habilita TLS"
     type: boolean
