@@ -2,7 +2,7 @@ rancher_min_version: 2.3.0
 categories:
 - Monitoring
 - application
-questions:
+Acesso PostgreSQL:
 - variable: postgresAccess.unifiedSecret
   ### Configurações  de Acesso ao Banco de Dados
   default: "true"
@@ -10,7 +10,7 @@ questions:
   label: Utiliza uma secret para acesso ao banco de dados.
   type: boolean
   show_subquestion_if: true
-  group: "PostgreSQL"
+  group: "Acesso PostgreSQL"
   subquestions:
   - variable: postgresAccess.unifiedSecretName
     default: "zabbixdb-pguser-zabbix"
@@ -38,6 +38,8 @@ questions:
   default: "true"
   description: "Habilita a limpeza automática de nós."
   label: Habilita a limpeza automática de nós.
+  group: "PostgreSQL"
+  type: boolean
 
 - variable: postgresql.enabled
   default: "true"
@@ -53,57 +55,64 @@ questions:
   description: "Versão do PostgreSQL."
   type: string
   label: Repositório do PostgreSQL.
+  group: "PostgreSQL"
 
 - variable: postgresql.tag
   default: "16"
   description: "Versão do PostgreSQL."
   type: string
   label: Versão do PostgreSQL.
+  group: "PostgreSQL"
 
 - variable: postgresql.persistence.enabled
   default: "true"
   description: "Habilita a persistência do banco de dados."
   type: boolean
   label: Habilita a persistência do banco de dados.
+  group: "PostgreSQL"
 
 - variable: postgresql.persistence.StorageSize
   default: "10Gi"
   description: "Tamanho do volume para persistência do banco de dados."
   type: string
   label: Tamanho do volume para persistência do banco de dados.
-
-# Configurações do Zabbix
+  group: "PostgreSQL"
 # Configurações  do Zabbix
 - variable: zabbixProxy.enable
   default: "false"
   description: "Habilita ou não o Zabbix Proxy."
   label: Zabbix Proxy.
+  group: "Zabbix"
 
 - variable: zabbixProxy.replicaCount
   default: "1"
   description: "Número de replicas do Zabbix Proxy."
   label: Número de replicas.
+  group: "Zabbix"
 
 - variable: zabbixAgent.enabled
   default: "true"
   description: "Habilita o Zabbix Agent."
   label: Zabbix Agent.
+  group: "Zabbix"
 
 - variable: zabbix.enabled
   default: "true"
   description: "Habilita o Zabbix na sua stack."
   label: Zabbix server habilitado.
-
+  group: "Zabbix"
   subquestions:
 - variable: zabbix.zabbixweb.enable
   default: "true"
   description: "Habilita o Zabbix Web."
   label: Zabbix Web.
+  group: "Zabbix"
 
 - variable: zabbix.zabbixagent.enable
   default: "true"
   description: "Habilita o Zabbix Web."
   label: Zabbix Web.
+  group: "Zabbix"
 
 - variable: zabbix.ingress.enabled
   default: "true"
@@ -118,17 +127,20 @@ questions:
   description: "Informe o dominio para o Zabbix."
   type: string
   label: Informe o dominio.
+  group: "Zabbix"
+
 - variable: zabbix.ingress.tls.enabled
   default: "true"
   description: "Habilita o certificado TLS."
   type: boolean
   label: Habilita o certificado TLS.
+  group: "Zabbix"
 - variable: zabbix.ingress.tls.secretName
   default: "zabbix-ssl"
   description: "Informe a secret para guardar o certificado."
   type: string
   show_if: "zabbix.ingress.tls.enabled=true"
-
+  group: "Zabbix"
 
 # Configurações  do Grafana
 - variable: grafana.enabled
@@ -145,11 +157,14 @@ questions:
   description: "Informe o usuário de acesso ao Grafana."
   type: string
   label: Usuário para o Grafana.
+  group: "Grafana"
+
 - variable: grafana.adminPassword
   default: ""
   description: "Informe a senha de acesso ao Grafana."
   type: password
   label: Senha para o Grafana.
+  group: "Grafana"
 
 - variable: grafana.ingress.enabled
   default: "true"
