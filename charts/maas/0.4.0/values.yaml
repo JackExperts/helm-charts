@@ -210,7 +210,7 @@ zabbix:
   # **PostgreSQL** configurations
   postgresql:
     # -- Create a database using Postgresql
-    enabled: true
+    enabled: false
     image:
       # -- Postgresql Docker image name: chose one of "postgres" or "timescale/timescaledb"
       repository: postgres

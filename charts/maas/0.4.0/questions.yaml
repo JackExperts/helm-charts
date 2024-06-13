@@ -69,6 +69,7 @@ questions:
     type: boolean
     label: Habilita a persistência do banco de dados.
     group: "PostgreSQL"
+    show_if: "zabbix.postgresql.enabled=true"
 
   - variable: zabbix.postgresql.persistence.storageSize
     default: "10Gi"
@@ -76,6 +77,7 @@ questions:
     type: string
     label: Tamanho do volume para persistência do banco de dados.
     group: "PostgreSQL"
+    show_if: "zabbix.postgresql.persistence.enabled=true"
 # Configurações  do Zabbix
 - variable: zabbix.zabbixProxy.enable
   default: "false"
