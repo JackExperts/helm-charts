@@ -225,7 +225,7 @@ zabbix:
     resources: {}
     persistence:
       # -- Whether to enable persistent storage for the postgres container or not
-      enabled: true
+      enabled: false
       # -- Existing persistent volume claim name to be used to store posgres data
       existingClaimName: false
       # -- Size of the PVC to be automatically generated
