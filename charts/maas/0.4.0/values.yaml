@@ -101,14 +101,11 @@ zabbix:
         - path: /
           pathType: ImplementationSpecific
       # -- Ingress TLS configuration
-      tls: []
-      #  - secretName: chart-example-tls
-      #    hosts:
-      #      - chart-example.local
-      # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
-      # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
-      # ingressClassName: nginx
-      # -- pathType is only for k8s >= 1.1=
+      tls:
+      - secretName: chart-example-tls
+        hosts:
+        - chart-example.local
+        ingressClassName: nginx
       pathType: Prefix
 
   zabbixagent:
