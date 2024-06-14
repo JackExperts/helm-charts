@@ -83,14 +83,14 @@ questions:
 
 - variable: zabbix.enabled
   default: "true"
+  type: boolean
   description: "Habilita o Zabbix na sua stack."
   label: Zabbix Server.
   group: "Zabbix"
   show_subquestion_if: true
-
   subquestions:
-
 - variable: zabbix.zabbixweb.enabled
+  type: boolean
   default: "true"
   description: "Habilita o Zabbix Web."
   label: Zabbix Web.
@@ -111,12 +111,15 @@ questions:
   label: Zabbix Proxy.
   group: "Zabbix"
   show_if: "zabbix.enabled=true"
+  type: boolean
 
 - variable: zabbix.zabbixagent.enabled
   default: "true"
   description: "Habilita o Zabbix Agent."
   label: Zabbix Agent.
   group: "Zabbix"
+  show_if: "zabbix.enabled=true"
+  type: boolean
 
 # Configurações  do Grafana
 - variable: grafana.enabled
@@ -165,24 +168,6 @@ questions:
     type: boolean
     group: "Grafana"
     show_if: "grafana.enabled=true"
-
-  - variable: grafana.tls.enabled
-    default: "true"
-    description: "Habilita o certificado do ingress."
-    type: string
-    label: Informe o dominio.
-    requerided: false
-    group: "Grafana"
-    show_if: "grafana.enabled=true"
-
-  - variable: grafana.tls.secretName
-    default: "grafana-ssl"
-    description: "Informe a secret para guardar o certificado."
-    type: string
-    show_if: "grafana.tls.enabled=true"
-    group: "Grafana"
-    requerided: false
-    label: Informe a secret para guardar o certificado.
 
 - variable: rundeck.enabled
   ### Rundeck
