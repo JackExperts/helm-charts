@@ -132,9 +132,9 @@ questions:
   group: "Grafana"
   subquestions:
   - variable: grafana.adminUser
-    default: "admin"
+    default: ""
     description: "Informe o usuário de acesso ao Grafana."
-    type: string
+    type: username
     label: Usuário para o Grafana.
     group: "Grafana"
 

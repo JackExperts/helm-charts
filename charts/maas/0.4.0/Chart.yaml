@@ -21,4 +21,4 @@ description: Monitoring As a Service (MaaS) - Jack Experts
 icon: file://img/maas.png
 name: maas
 type: application
-version: 0.4.0
+version: 0.4.1
