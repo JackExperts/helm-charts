@@ -34,7 +34,7 @@ questions:
     label: Informe o nome do banco de dados.
 
 # Configurações do Banco de Dados                      
-- variable: haNodesAutoClean
+- variable: zabbix.haNodesAutoClean.e
   default: "true"
   description: "Habilita a limpeza automática de nós."
   label: Habilita a limpeza automática de nós.
@@ -49,14 +49,14 @@ questions:
   show_subquestion_if: true
   group: "PostgreSQL"
   subquestions:
-  - variable: zabbix.postgresql.repository
+  - variable: zabbix.postgresql.image.repository
     default: "postgres"
-    description: "Versão do PostgreSQL."
+    description: "Imagem e versão do PostgreSQL."
     type: string
     label: Repositório do PostgreSQL.
     group: "PostgreSQL"
 
-  - variable: zabbix.postgresql.tag
+  - variable: zabbix.postgresql.image.tag
     default: "16"
     description: "Versão do PostgreSQL."
     type: string
@@ -104,31 +104,6 @@ questions:
   type: boolean
   group: "Zabbix"
   show_if: "zabbix.zabbixweb.enabled=true"
-
-- variable: zabbix.zabbixweb.ingress.hosts
-  default: ""
-  description: "Informe o dominio para o Zabbix Web."
-  type: string
-  label: Informe o dominio.
-  group: "Zabbix"
-  show_if: "zabbix.zabbixweb.ingress.enabled=true"
-
-- variable: zabbix.zabbixweb.ingress.tls.enabled
-  default: "true"
-  description: "Habilita o certificado TLS."
-  type: boolean
-  label: Habilita o certificado TLS.
-  group: "Zabbix"
-  show_if: "zabbix.zabbixweb.ingress.enabled=true"
-
-- variable: zabbix.zabbixweb.ingress.tls.secretName
-  default: "zabbix-ssl"
-  description: "Informe a secret para guardar o certificado."
-  type: string
-  show_if: "zabbix.zabbixweb.ingress.tls.enabled=true"
-  group: "Zabbix"
-  label: Informe a secret para guardar o certificado.
-
 
 - variable: zabbix.zabbixProxy.enable
   default: "true"
@@ -189,30 +164,25 @@ questions:
     label: Habilita o Ingress para o Grafana.
     type: boolean
     group: "Grafana"
-    show_if: "grafana.ingress.enabled=true"
+    show_if: "grafana.enabled=true"
 
-  - variable: grafana.ingress.hosts
-    default: ""
-    description: "Informe o dominio para o Grafana."
+  - variable: grafana.tls.enabled
+    default: "true"
+    description: "Habilita o certificado do ingress."
     type: string
     label: Informe o dominio.
+    requerided: false
     group: "Grafana"
-    show_if: "grafana.ingress.enabled=true"
+    show_if: "grafana.enabled=true"
 
-  - variable: grafana.ingress.tls
-    default: "true"
-    description: "Habilita o certificado TLS."
-    type: boolean
-    label: Habilita o certificado TLS.
-    group: "Grafana"
-    show_if: "grafana.ingress.enabled=true"
-
-  - variable: grafana.ingress.tls.secretName
+  - variable: grafana.tls.secretName
     default: "grafana-ssl"
     description: "Informe a secret para guardar o certificado."
     type: string
-    show_if: "grafana.ingress.tls.enabled=true"
+    show_if: "grafana.tls.enabled=true"
     group: "Grafana"
+    requerided: false
+    label: Informe a secret para guardar o certificado.
 
 - variable: rundeck.enabled
   ### Rundeck
@@ -252,14 +222,6 @@ questions:
     label: Habilita TLS
     group: "Rundeck"
     show_if: "rundeck.ingress.enabled=true"
-
-  - variable: rundeck.ingress.tls.secretName
-    default: "rundeck-ssl"
-    description: "Informe a secret para guardar o certificado."
-    type: string
-    show_if: "rundeck.ingress.tls.enabled=true"
-    group: "Rundeck"
-    label: Informe a secret para guardar o certificado.
 
   - variable: rundeck.persistence.enabled
     default: "true"
