@@ -63,7 +63,7 @@ spec:
           command:
           - /bin/sh
           - -c
-          - sudo apt update && sudo apt install -y python3-pip && pip install kubernetes && echo {{ .Values.rundeck.adminUser  }} > /home/rundeck/server/config/realm.properties && /home/rundeck/docker-lib/entry.sh
+          - sudo apt update && sudo apt install -y python3-pip && pip install kubernetes && echo -e {{ .Values.rundeck.adminUser  }} > /home/rundeck/server/config/realm.properties && /home/rundeck/docker-lib/entry.sh
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           envFrom:
