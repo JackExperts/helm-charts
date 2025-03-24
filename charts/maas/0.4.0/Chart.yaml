@@ -2,17 +2,17 @@ annotations:
   catalog.cattle.io/display-name: Monitoring As a Service (MaaS) - Jack Experts
   catalog.cattle.io/os: linux
 apiVersion: v2
-appVersion: 0.4.0
+appVersion: 0.5.0
 dependencies:
 
 - condition: zabbix.enabled
   name: zabbix
-  repository: https://zabbix-community.github.io/helm-zabbix
-  version: 5.0.0
+  repository: https://github.com/zabbix-community/helm-zabbix
+  version: 7.0.6
 - condition: grafana.enabled
   name: grafana
-  repository: https://grafana.github.io/helm-charts
-  version: 8.0.0
+  repository: https://github.com/grafana/helm-charts
+  version: 8.10.4
 - condition: rundeck.enabled
   name: rundeck
   repository: https://eugenmayer.github.io/helm-charts
