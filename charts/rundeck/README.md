@@ -5,9 +5,9 @@ O Rundeck permite que você transforme seus procedimentos operacionais em trabal
 
 ## Instalação
 
-    git clone https://gitlab.com/jackexperts/clientes/globalweb/projetonoc-centralizado/rundeck-anywhere.git
+    git clone https://github.com/JackExperts/helm-charts.git
 
-    cd helm/rundeck
+    cd charts/rundeck
 
     helm install nome_do_release -n nome_do_namespace .
 
